@@ -45,4 +45,8 @@ public class Band {
     public String getBandName() {
         return bandName;
     }
+
+    public BandDetails getBandDetails() {
+        return details;
+    }
 }

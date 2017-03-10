@@ -39,4 +39,16 @@ public class BandDetails {
     @SerializedName("years active")
     @Expose
     private String yearsActive;
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getFullLocation() {
+        return country + " (" + location + ")";
+    }
+
+    public String getLabel() {
+        return currentLabel;
+    }
 }

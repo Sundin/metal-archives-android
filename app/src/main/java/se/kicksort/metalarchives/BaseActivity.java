@@ -8,6 +8,7 @@ import com.roughike.bottombar.BottomBar;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import se.kicksort.metalarchives.model.Band;
 import se.kicksort.metalarchives.network.BandController;
 
 /**
@@ -43,7 +44,16 @@ public class BaseActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(band -> {
                     Log.d("BASE_", band.getBandName());
+                    openBand(band);
                 });
+
+
+    }
+
+    private void openBand(Band band) {
+        BandFragment bandFragment = new BandFragment();
+        bandFragment.setBand(band);
+        NavigationManager.getInstance().open(bandFragment);
     }
 
     @Override
