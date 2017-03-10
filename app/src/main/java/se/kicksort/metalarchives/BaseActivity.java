@@ -41,7 +41,7 @@ public class BaseActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(band -> {
-                    Log.d("METAL", band.toString());
+                    Log.d("BASE_", band.getBandName());
                 });
     }
 

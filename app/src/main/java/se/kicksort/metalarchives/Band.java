@@ -8,15 +8,15 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Band {
-    @SerializedName("data/id")
+    @SerializedName("id")
     @Expose
     private String id;
 
-    @SerializedName("data/band_name")
+    @SerializedName("band_name")
     @Expose
-    private String band_name;
+    private String bandName;
 
     public String getBandName() {
-        return band_name;
+        return bandName;
     }
 }

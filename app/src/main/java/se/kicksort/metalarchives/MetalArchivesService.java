@@ -10,5 +10,5 @@ import retrofit2.http.Path;
 
 public interface MetalArchivesService {
     @GET("band/{band}?api_key=2a97f42a-67f1-4ae2-a538-ea52277d2e63")
-    Observable<Response> getBand(@Path("band") String band);
+    Observable<Band> getBand(@Path("band") String band);
 }
