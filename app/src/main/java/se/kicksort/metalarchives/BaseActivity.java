@@ -8,6 +8,7 @@ import com.roughike.bottombar.BottomBar;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import se.kicksort.metalarchives.network.BandController;
 
 /**
  * Created by Gustav Sundin on 01/03/17.

@@ -1,4 +1,4 @@
-package se.kicksort.metalarchives;
+package se.kicksort.metalarchives.network;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;

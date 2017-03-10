@@ -1,8 +1,9 @@
-package se.kicksort.metalarchives;
+package se.kicksort.metalarchives.network;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import se.kicksort.metalarchives.model.Band;
 
 /**
  * Created by Gustav Sundin on 10/03/17.
