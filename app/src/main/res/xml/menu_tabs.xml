@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_1"
+        title="1"
+        inActiveColor="@color/colorPrimary"
+        activeColor="@color/colorPrimaryDark"
+        badgeBackgroundColor="@color/colorAccent"/>
+    <tab
+        id="@+id/tab_2"
+        title="2"
+        inActiveColor="@color/colorPrimary"
+        activeColor="@color/colorPrimaryDark"
+        badgeBackgroundColor="@color/colorAccent"/>
+
+    <tab
+        id="@+id/tab_3"
+        title="3"
+        inActiveColor="@color/colorPrimary"
+        activeColor="@color/colorPrimaryDark"
+        badgeBackgroundColor="@color/colorAccent"/>
+</tabs>
