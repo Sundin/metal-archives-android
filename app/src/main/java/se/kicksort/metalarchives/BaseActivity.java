@@ -2,8 +2,12 @@ package se.kicksort.metalarchives;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.roughike.bottombar.BottomBar;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Gustav Sundin on 01/03/17.
@@ -31,6 +35,14 @@ public class BaseActivity extends AppCompatActivity {
         bottomMenu.setOnTabSelectListener(tabId -> {
             //
         });
+
+        BandController bandController = new BandController();
+        bandController.getBand("3540317214")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(band -> {
+                    Log.d("METAL", band.toString());
+                });
     }
 
     @Override
