@@ -32,7 +32,6 @@ public class BaseActivity extends AppCompatActivity {
         BottomBar bottomMenu = (BottomBar) findViewById(R.id.bottom_menu);
         navigationManager = new NavigationManager(getSupportFragmentManager(), this);
 
-
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;
