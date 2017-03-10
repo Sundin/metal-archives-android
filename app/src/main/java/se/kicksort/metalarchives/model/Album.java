@@ -23,4 +23,16 @@ public class Album {
     @SerializedName("year")
     @Expose
     private String year;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

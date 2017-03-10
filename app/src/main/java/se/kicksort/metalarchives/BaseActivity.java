@@ -39,15 +39,13 @@ public class BaseActivity extends AppCompatActivity {
         });
 
         BandController bandController = new BandController();
-        bandController.getBand("3540317214")
+        bandController.getBand("3540327224")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(band -> {
                     Log.d("BASE_", band.getBandName());
                     openBand(band);
                 });
-
-
     }
 
     private void openBand(Band band) {

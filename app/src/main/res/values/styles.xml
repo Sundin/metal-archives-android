@@ -4,6 +4,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
+    </style>
+
+    <style name="TextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="band_name_title" parent="TextViewStyle">
+        <item name="android:textSize">45sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="sub_text" parent="TextViewStyle">
+        <item name="android:textStyle">normal</item>
     </style>
 
 </resources>

@@ -49,4 +49,16 @@ public class Band {
     public BandDetails getBandDetails() {
         return details;
     }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public ArrayList<Album> getDiscography() {
+        return discography;
+    }
 }
