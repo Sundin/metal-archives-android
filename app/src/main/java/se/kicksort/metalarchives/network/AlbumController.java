@@ -8,7 +8,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import se.kicksort.metalarchives.model.Album;
-import se.kicksort.metalarchives.model.DetailedAlbum;
+import se.kicksort.metalarchives.model.AlbumWrapper;
+import se.kicksort.metalarchives.model.CompleteAlbumInfo;
 
 /**
  * Created by Gustav Sundin on 17/03/17.
@@ -21,7 +22,7 @@ public class AlbumController {
 
     public AlbumController() {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(DetailedAlbum.class, new MyDeserializer<DetailedAlbum>())
+                .registerTypeAdapter(AlbumWrapper.class, new MyDeserializer<AlbumWrapper>())
                 .create();
 
         retrofit = new Retrofit.Builder()
@@ -32,7 +33,7 @@ public class AlbumController {
         metalArchivesService = retrofit.create(MetalArchivesService.class);
     }
 
-    public Observable<Album> getAlbum(String albumId) {
-        return metalArchivesService.getAlbum(albumId).map(DetailedAlbum::getAlbum);
+    public Observable<CompleteAlbumInfo> getAlbum(String albumId) {
+        return metalArchivesService.getAlbum(albumId).map(AlbumWrapper::getAlbum);
     }
 }

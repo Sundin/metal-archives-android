@@ -14,6 +14,7 @@ import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.R;
 import se.kicksort.metalarchives.databinding.AlbumFragmentBinding;
 import se.kicksort.metalarchives.model.Album;
+import se.kicksort.metalarchives.model.CompleteAlbumInfo;
 import se.kicksort.metalarchives.network.AlbumController;
 
 /**
@@ -56,7 +57,7 @@ public class AlbumFragment extends Fragment {
                 });
     }
 
-    private void displayAlbum(Album album) {
+    private void displayAlbum(CompleteAlbumInfo album) {
         binding.setAlbum(album);
     }
 }
