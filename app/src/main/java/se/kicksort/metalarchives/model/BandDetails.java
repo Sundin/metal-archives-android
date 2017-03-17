@@ -51,4 +51,8 @@ public class BandDetails {
     public String getLabel() {
         return currentLabel;
     }
+
+    public String getYearsActive() {
+        return yearsActive;
+    }
 }

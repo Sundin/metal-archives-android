@@ -58,6 +58,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{bandDetails.yearsActive}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@{bandDetails.label}" />
 
             <View
@@ -76,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:text="DISCOGRAPHY" />
+                    android:text="@string/discography_section_header" />
 
             </LinearLayout>
 
