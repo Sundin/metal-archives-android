@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +30,6 @@ public class BandFragment extends Fragment {
     private BandController bandController = new BandController();
 
     private final PublishSubject<Integer> scrollSubject = PublishSubject.create();
-    private boolean searchBarIsHidden = false;
-    private int lastScrollY = 0;
 
     @Nullable
     @Override
@@ -43,20 +40,7 @@ public class BandFragment extends Fragment {
             loadBandData();
         }
 
-        binding.scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
-            int scrollY = binding.scrollView.getScrollY();
-            int deltaY = scrollY - lastScrollY;
-
-            if (deltaY > 0 && !searchBarIsHidden) {
-                ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-                searchBarIsHidden = true;
-            } else if (deltaY < 0 && searchBarIsHidden) {
-                ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-                searchBarIsHidden = false;
-            }
-
-            lastScrollY = scrollY;
-        });
+        binding.scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> scrollSubject.onNext(binding.scrollView.getScrollY()));
 
         return binding.getRoot();
     }
@@ -78,7 +62,7 @@ public class BandFragment extends Fragment {
     private void displayBand(Band band) {
         binding.setBand(band);
         binding.setBandDetails(band.getBandDetails());
-        
+
         Picasso.with(getContext()).load(band.getLogoUrl()).into(binding.bandLogo);
         Picasso.with(getContext()).load(band.getPhotoUrl()).into(binding.bandPhoto);
 

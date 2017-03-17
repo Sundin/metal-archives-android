@@ -24,6 +24,9 @@ public class BaseActivity extends AppCompatActivity {
     public NavigationManager navigationManager;
     private SearchResultsView searchResults;
 
+    private int lastScrollY = 0;
+    private boolean searchBarIsHidden = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,21 @@ public class BaseActivity extends AppCompatActivity {
         BandFragment bandFragment = new BandFragment();
         bandFragment.setBandId(bandId);
         NavigationManager.getInstance().open(bandFragment);
+        bandFragment.getScrollEvents().subscribe(this::handleScroll);
+    }
+
+    private void handleScroll(int scrollY) {
+        int deltaY = scrollY - lastScrollY;
+
+        if (deltaY > 0 && !searchBarIsHidden) {
+            getSupportActionBar().hide();
+            searchBarIsHidden = true;
+        } else if (deltaY < 0 && searchBarIsHidden) {
+            getSupportActionBar().show();
+            searchBarIsHidden = false;
+        }
+
+        lastScrollY = scrollY;
     }
 
     @Override
