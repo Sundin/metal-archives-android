@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 import android.widget.SearchView;
 
 import com.roughike.bottombar.BottomBar;
@@ -51,18 +52,22 @@ public class BaseActivity extends AppCompatActivity {
         });
 
         mAdapter = new ExampleAdapter(this, ALPHABETICAL_COMPARATOR);
+        mAdapter.getSearchResultClicks().subscribe(this::openBandResult);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
+    }
 
-        /*bandController.getBand("3540327224")
+    private void openBandResult(BandSearchResult bandSearchResult) {
+        bandController.getBand(bandSearchResult.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(band -> {
-                    Log.d("BASE_", band.getBandName());
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+                    recyclerView.setVisibility(View.INVISIBLE);
                     openBand(band);
-                });*/
+                });
     }
 
     private void openBand(Band band) {
@@ -97,6 +102,9 @@ public class BaseActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+                recyclerView.setVisibility(View.VISIBLE);
+
                 mAdapter.removeAll();
                 bandController.searchByBandName(s)
                         .subscribeOn(Schedulers.io())
@@ -104,7 +112,6 @@ public class BaseActivity extends AppCompatActivity {
                         .subscribe(results -> {
                             for (BandSearchResult band : results) {
                                 mAdapter.add(band);
-                                Log.d("TAG", band.getBandName());
                             }
                         });
 

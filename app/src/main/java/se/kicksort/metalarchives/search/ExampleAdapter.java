@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import java.util.Comparator;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.databinding.BandSearchResultBinding;
 import se.kicksort.metalarchives.model.BandSearchResult;
 
 public class ExampleAdapter extends RecyclerView.Adapter<ExampleViewHolder> {
+    private PublishSubject<BandSearchResult> clickSubject = PublishSubject.create();
 
     public void add(BandSearchResult model) {
         mSortedList.add(model);
@@ -105,10 +108,21 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleViewHolder> {
     public void onBindViewHolder(ExampleViewHolder holder, int position) {
         final BandSearchResult model = mSortedList.get(position);
         holder.bind(model);
+        holder.itemView.setOnClickListener(view -> {
+            int position1 = holder.getAdapterPosition();
+            if (RecyclerView.NO_POSITION != position1) {
+                BandSearchResult band = mSortedList.get(position1);
+                clickSubject.onNext(band);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mSortedList.size();
+    }
+
+    public Observable<BandSearchResult> getSearchResultClicks() {
+        return clickSubject;
     }
 }

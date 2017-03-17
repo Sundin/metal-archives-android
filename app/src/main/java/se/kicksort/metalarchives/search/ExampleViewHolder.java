@@ -6,7 +6,6 @@ import se.kicksort.metalarchives.databinding.BandSearchResultBinding;
 import se.kicksort.metalarchives.model.BandSearchResult;
 
 public class ExampleViewHolder extends RecyclerView.ViewHolder {
-
     private final BandSearchResultBinding mBinding;
 
     public ExampleViewHolder(BandSearchResultBinding binding) {
