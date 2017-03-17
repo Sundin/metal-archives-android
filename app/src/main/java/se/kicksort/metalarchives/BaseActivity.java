@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
 import com.roughike.bottombar.BottomBar;
@@ -60,6 +60,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void openBandResult(BandSearchResult bandSearchResult) {
+        hideKeyboard();
         bandController.getBand(bandSearchResult.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -122,14 +123,17 @@ public class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    private static final Comparator<BandSearchResult> ALPHABETICAL_COMPARATOR = new Comparator<BandSearchResult>() {
-        @Override
-        public int compare(BandSearchResult a, BandSearchResult b) {
-            return a.getBandName().compareTo(b.getBandName());
-        }
-    };
+    private static final Comparator<BandSearchResult> ALPHABETICAL_COMPARATOR = (a, b) -> a.getBandName().compareTo(b.getBandName());
 
     private ExampleAdapter mAdapter;
     private List<BandSearchResult> mModels;
     private RecyclerView mRecyclerView;
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 }
