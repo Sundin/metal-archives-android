@@ -25,7 +25,6 @@ public class BaseActivity extends AppCompatActivity {
     private SearchResultsView searchResults;
 
     private int lastScrollY = 0;
-    private boolean searchBarIsHidden = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +64,10 @@ public class BaseActivity extends AppCompatActivity {
     private void handleScroll(int scrollY) {
         int deltaY = scrollY - lastScrollY;
 
-        if (deltaY > 0 && !searchBarIsHidden) {
-            getSupportActionBar().hide();
-            searchBarIsHidden = true;
-        } else if (deltaY < 0 && searchBarIsHidden) {
+        if (scrollY < 10 && deltaY < 0) {
             getSupportActionBar().show();
-            searchBarIsHidden = false;
+        } else if (scrollY > 20) {
+            getSupportActionBar().hide();
         }
 
         lastScrollY = scrollY;
