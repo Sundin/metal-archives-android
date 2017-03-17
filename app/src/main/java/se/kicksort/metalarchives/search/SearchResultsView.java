@@ -28,7 +28,7 @@ public class SearchResultsView extends LinearLayout {
     private SearchResultsFragmentBinding binding;
 
     private BandController bandController = new BandController();
-    private ExampleAdapter mAdapter;
+    private SearchAdapter mAdapter;
     private SearchViewQueryListener queryListener = new SearchViewQueryListener();
     private PublishSubject<BandSearchResult> clickSubject = PublishSubject.create();
 
@@ -40,7 +40,7 @@ public class SearchResultsView extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         binding = DataBindingUtil.inflate(inflater, R.layout.search_results_fragment, this, true);
 
-        mAdapter = new ExampleAdapter(getContext(), ALPHABETICAL_COMPARATOR);
+        mAdapter = new SearchAdapter(getContext(), ALPHABETICAL_COMPARATOR);
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(mAdapter);

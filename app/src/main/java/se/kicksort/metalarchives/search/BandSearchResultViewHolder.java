@@ -5,10 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import se.kicksort.metalarchives.databinding.BandSearchResultBinding;
 import se.kicksort.metalarchives.model.BandSearchResult;
 
-public class ExampleViewHolder extends RecyclerView.ViewHolder {
+public class BandSearchResultViewHolder extends RecyclerView.ViewHolder {
     private final BandSearchResultBinding mBinding;
 
-    public ExampleViewHolder(BandSearchResultBinding binding) {
+    public BandSearchResultViewHolder(BandSearchResultBinding binding) {
         super(binding.getRoot());
         mBinding = binding;
     }

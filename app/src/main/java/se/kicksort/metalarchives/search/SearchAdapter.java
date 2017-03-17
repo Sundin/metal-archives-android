@@ -14,7 +14,7 @@ import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.databinding.BandSearchResultBinding;
 import se.kicksort.metalarchives.model.BandSearchResult;
 
-public class ExampleAdapter extends RecyclerView.Adapter<ExampleViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<BandSearchResultViewHolder> {
     private PublishSubject<BandSearchResult> clickSubject = PublishSubject.create();
 
     public void add(BandSearchResult model) {
@@ -93,19 +93,19 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleViewHolder> {
     private final LayoutInflater mInflater;
     private final Comparator<BandSearchResult> mComparator;
 
-    public ExampleAdapter(Context context, Comparator<BandSearchResult> comparator) {
+    public SearchAdapter(Context context, Comparator<BandSearchResult> comparator) {
         mInflater = LayoutInflater.from(context);
         mComparator = comparator;
     }
 
     @Override
-    public ExampleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BandSearchResultViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final BandSearchResultBinding binding = BandSearchResultBinding.inflate(mInflater, parent, false);
-        return new ExampleViewHolder(binding);
+        return new BandSearchResultViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(ExampleViewHolder holder, int position) {
+    public void onBindViewHolder(BandSearchResultViewHolder holder, int position) {
         final BandSearchResult model = mSortedList.get(position);
         holder.bind(model);
         holder.itemView.setOnClickListener(view -> {
