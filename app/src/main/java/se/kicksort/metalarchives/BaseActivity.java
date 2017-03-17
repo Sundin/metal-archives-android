@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,15 +13,12 @@ import android.widget.SearchView;
 
 import com.roughike.bottombar.BottomBar;
 
-import java.util.Comparator;
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import se.kicksort.metalarchives.model.Band;
 import se.kicksort.metalarchives.model.BandSearchResult;
 import se.kicksort.metalarchives.network.BandController;
-import se.kicksort.metalarchives.search.ExampleAdapter;
+import se.kicksort.metalarchives.search.SearchResultsView;
 
 /**
  * Created by Gustav Sundin on 01/03/17.
@@ -31,6 +27,7 @@ import se.kicksort.metalarchives.search.ExampleAdapter;
 public class BaseActivity extends AppCompatActivity {
     public NavigationManager navigationManager;
     private BandController bandController = new BandController();
+    private SearchResultsView searchResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +48,8 @@ public class BaseActivity extends AppCompatActivity {
             //
         });
 
-        mAdapter = new ExampleAdapter(this, ALPHABETICAL_COMPARATOR);
-        mAdapter.getSearchResultClicks().subscribe(this::openBandResult);
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(mAdapter);
+        searchResults = (SearchResultsView) findViewById(R.id.search_results);
+        searchResults.getSearchResultClicks().subscribe(this::openBandResult);
     }
 
     private void openBandResult(BandSearchResult bandSearchResult) {
@@ -95,39 +88,10 @@ public class BaseActivity extends AppCompatActivity {
         searchView.setIconifiedByDefault(false);
         searchView.setSubmitButtonEnabled(true);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-                recyclerView.setVisibility(View.VISIBLE);
-
-                mAdapter.removeAll();
-                bandController.searchByBandName(s)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(results -> {
-                            for (BandSearchResult band : results) {
-                                mAdapter.add(band);
-                            }
-                        });
-
-                return false;
-            }
-        });
+        searchView.setOnQueryTextListener(searchResults.getQueryListener());
 
         return true;
     }
-
-    private static final Comparator<BandSearchResult> ALPHABETICAL_COMPARATOR = (a, b) -> a.getBandName().compareTo(b.getBandName());
-
-    private ExampleAdapter mAdapter;
-    private List<BandSearchResult> mModels;
-    private RecyclerView mRecyclerView;
 
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
