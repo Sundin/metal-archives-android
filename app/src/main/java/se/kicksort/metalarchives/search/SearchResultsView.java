@@ -65,16 +65,22 @@ public class SearchResultsView extends LinearLayout {
 
     private class SearchViewQueryListener implements SearchView.OnQueryTextListener {
         @Override
-        public boolean onQueryTextSubmit(String s) {
-            return false;
+        public boolean onQueryTextSubmit(String query) {
+            handleSearch(query);
+            return true;
         }
 
         @Override
-        public boolean onQueryTextChange(String s) {
+        public boolean onQueryTextChange(String query) {
+            handleSearch(query);
+            return true;
+        }
+
+        private void handleSearch(String query) {
             binding.recyclerView.setVisibility(View.VISIBLE);
 
             mAdapter.removeAll();
-            bandController.searchByBandName(s)
+            bandController.searchByBandName(query)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(results -> {
@@ -83,7 +89,6 @@ public class SearchResultsView extends LinearLayout {
                         }
                     });
 
-            return false;
         }
     }
 }

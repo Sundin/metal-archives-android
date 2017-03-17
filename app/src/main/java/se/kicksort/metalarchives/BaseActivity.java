@@ -89,7 +89,7 @@ public class BaseActivity extends AppCompatActivity {
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
-        searchView.setSubmitButtonEnabled(true);
+        searchView.setSubmitButtonEnabled(false);
 
         searchView.setOnQueryTextListener(searchResults.getQueryListener());
 
