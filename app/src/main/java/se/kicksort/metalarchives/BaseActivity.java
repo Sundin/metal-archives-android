@@ -3,6 +3,7 @@ package se.kicksort.metalarchives;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -77,11 +78,16 @@ public class BaseActivity extends AppCompatActivity {
         searchView.setIconifiedByDefault(false);
         searchView.setSubmitButtonEnabled(true);
 
+        SearchRecentSuggestions suggestions =
+                new SearchRecentSuggestions(this,
+                        SampleRecentSuggestionsProvider.AUTHORITY,
+                        SampleRecentSuggestionsProvider.MODE);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
+            public boolean onQueryTextSubmit(String query) {
                 Log.d("TAG", "onQueryTextSubmit ");
-                bandController.searchByBandName(s)
+                bandController.searchByBandName(query)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(results -> {
@@ -89,11 +95,14 @@ public class BaseActivity extends AppCompatActivity {
                                 Log.d("TAG", band.getBandName());
                             }
                         });
+
+                suggestions.saveRecentQuery(query, null);
+
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
+            public boolean onQueryTextChange(String query) {
                 Log.d("TAG", "onQueryTextChange ");
 
                 return false;
