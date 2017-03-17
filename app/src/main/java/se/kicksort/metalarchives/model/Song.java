@@ -15,4 +15,12 @@ public class Song {
     @SerializedName("length")
     @Expose
     private String length;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getLength() {
+        return length;
+    }
 }

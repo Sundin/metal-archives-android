@@ -64,8 +64,12 @@ public class BandFragment extends Fragment {
         binding.setBand(band);
         binding.setBandDetails(band.getBandDetails());
 
-        Picasso.with(getContext()).load(band.getLogoUrl()).into(binding.bandLogo);
-        Picasso.with(getContext()).load(band.getPhotoUrl()).into(binding.bandPhoto);
+        if (!band.getLogoUrl().equals("")) {
+            Picasso.with(getContext()).load(band.getLogoUrl()).into(binding.bandLogo);
+        }
+        if (!band.getPhotoUrl().equals("")) {
+            Picasso.with(getContext()).load(band.getPhotoUrl()).into(binding.bandPhoto);
+        }
 
         for (Album album : band.getDiscography()) {
             AlbumListEntry albumView = new AlbumListEntry(getContext());

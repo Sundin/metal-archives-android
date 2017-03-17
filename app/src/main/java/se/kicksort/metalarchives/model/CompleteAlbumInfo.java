@@ -41,4 +41,36 @@ public class CompleteAlbumInfo extends Album {
     @SerializedName("personnel")
     @Expose
     private ArrayList<BandMember> lineup;
+
+    public String getAlbumCoverUrl() {
+        return albumCoverUrl;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public String getCatalogId() {
+        return catalogId;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public String getReviews() {
+        return reviews;
+    }
+
+    public ArrayList<Song> getSongs() {
+        return songs;
+    }
+
+    public ArrayList<BandMember> getLineup() {
+        return lineup;
+    }
 }

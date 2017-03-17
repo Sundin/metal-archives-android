@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.R;
 import se.kicksort.metalarchives.databinding.AlbumFragmentBinding;
-import se.kicksort.metalarchives.model.Album;
 import se.kicksort.metalarchives.model.CompleteAlbumInfo;
+import se.kicksort.metalarchives.model.Song;
 import se.kicksort.metalarchives.network.AlbumController;
 
 /**
@@ -59,5 +61,20 @@ public class AlbumFragment extends Fragment {
 
     private void displayAlbum(CompleteAlbumInfo album) {
         binding.setAlbum(album);
+
+        if (!album.getAlbumCoverUrl().equals("")) {
+            Picasso.with(getContext()).load(album.getAlbumCoverUrl()).into(binding.albumArtwork);
+        }
+
+        for (Song song : album.getSongs()) {
+            SongListEntry songView = new SongListEntry(getContext());
+            songView.setSong(song);
+            binding.songSection.addView(songView);
+
+            View divider = new View(getContext());
+            divider.setMinimumHeight(1);
+            divider.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            binding.songSection.addView(divider);
+        }
     }
 }
