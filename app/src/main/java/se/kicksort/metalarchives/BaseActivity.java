@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
-import se.kicksort.metalarchives.band.BandFragment;
 import se.kicksort.metalarchives.model.BandSearchResult;
 import se.kicksort.metalarchives.search.SearchResultsView;
 
@@ -31,6 +30,7 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
 
         navigationManager = new NavigationManager(getSupportFragmentManager(), this);
+        navigationManager.getScrollEvents().subscribe(this::handleScroll);
 
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
@@ -40,18 +40,6 @@ public class BaseActivity extends AppCompatActivity {
 
         searchResults = (SearchResultsView) findViewById(R.id.search_results);
         searchResults.getSearchResultClicks().subscribe(this::openBandResult);
-    }
-
-    private void openBandResult(BandSearchResult bandSearchResult) {
-        hideKeyboard();
-        openBand(bandSearchResult.getId());
-    }
-
-    private void openBand(String bandId) {
-        BandFragment bandFragment = new BandFragment();
-        bandFragment.setBandId(bandId);
-        NavigationManager.getInstance().open(bandFragment);
-        bandFragment.getScrollEvents().subscribe(this::handleScroll);
     }
 
     private void handleScroll(int scrollY) {
@@ -64,6 +52,11 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         lastScrollY = scrollY;
+    }
+
+    private void openBandResult(BandSearchResult bandSearchResult) {
+        hideKeyboard();
+        NavigationManager.getInstance().openBand(bandSearchResult.getId());
     }
 
     @Override

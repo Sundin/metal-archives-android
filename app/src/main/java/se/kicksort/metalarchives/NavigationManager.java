@@ -6,7 +6,10 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.album.AlbumFragment;
+import se.kicksort.metalarchives.band.BandFragment;
 
 /**
  * Created by Gustav Sundin on 06/01/17.
@@ -74,9 +77,23 @@ public class NavigationManager {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public void openAlbumFragment(String albumId) {
+    public void openAlbum(String albumId) {
         AlbumFragment fragment = new AlbumFragment();
         fragment.setAlbumId(albumId);
         open(fragment);
+        fragment.getScrollEvents().subscribe(scrollSubject::onNext);
+    }
+
+    public void openBand(String bandId) {
+        BandFragment bandFragment = new BandFragment();
+        bandFragment.setBandId(bandId);
+        NavigationManager.getInstance().open(bandFragment);
+        bandFragment.getScrollEvents().subscribe(scrollSubject::onNext);
+    }
+
+    private final PublishSubject<Integer> scrollSubject = PublishSubject.create();
+
+    public Observable<Integer> getScrollEvents() {
+        return scrollSubject;
     }
 }

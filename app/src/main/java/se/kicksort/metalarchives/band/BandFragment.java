@@ -74,7 +74,7 @@ public class BandFragment extends Fragment {
         for (Album album : band.getDiscography()) {
             AlbumListEntry albumView = new AlbumListEntry(getContext());
             albumView.setAlbum(album);
-            albumView.setOnClickListener(view -> NavigationManager.getInstance().openAlbumFragment(album.getId()));
+            albumView.setOnClickListener(view -> NavigationManager.getInstance().openAlbum(album.getId()));
             binding.discographySection.addView(albumView);
 
             View divider = new View(getContext());
