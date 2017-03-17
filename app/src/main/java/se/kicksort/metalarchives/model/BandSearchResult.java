@@ -28,6 +28,14 @@ public class BandSearchResult {
         return name;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
     public String getId() {
         return id;
     }
