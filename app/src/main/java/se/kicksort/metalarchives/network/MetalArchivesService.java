@@ -3,9 +3,8 @@ package se.kicksort.metalarchives.network;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import se.kicksort.metalarchives.model.Album;
 import se.kicksort.metalarchives.model.Band;
-import se.kicksort.metalarchives.model.DetailedAlbum;
+import se.kicksort.metalarchives.model.AlbumWrapper;
 import se.kicksort.metalarchives.model.SearchResults;
 
 /**
@@ -20,5 +19,5 @@ public interface MetalArchivesService {
     Observable<SearchResults> searchByBandName(@Path("query") String query);
 
     @GET("album/{albumId}?api_key=2a97f42a-67f1-4ae2-a538-ea52277d2e63")
-    Observable<DetailedAlbum> getAlbum(@Path("albumId") String albumId);
+    Observable<AlbumWrapper> getAlbum(@Path("albumId") String albumId);
 }

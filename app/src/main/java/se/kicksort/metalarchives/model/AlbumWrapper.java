@@ -7,16 +7,16 @@ import com.google.gson.annotations.SerializedName;
  * Created by Gustav Sundin on 17/03/17.
  */
 
-public class DetailedAlbum {
+public class AlbumWrapper {
     @SerializedName("band")
     @Expose
     private Band band;
 
     @SerializedName("album")
     @Expose
-    private Album album;
+    private CompleteAlbumInfo album;
 
-    public Album getAlbum() {
+    public CompleteAlbumInfo getAlbum() {
         return album;
     }
 }
