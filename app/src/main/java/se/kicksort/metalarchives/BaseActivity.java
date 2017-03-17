@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
-import com.roughike.bottombar.BottomBar;
-
 import se.kicksort.metalarchives.band.BandFragment;
 import se.kicksort.metalarchives.model.BandSearchResult;
 import se.kicksort.metalarchives.search.SearchResultsView;
@@ -32,7 +30,6 @@ public class BaseActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_base);
 
-        BottomBar bottomMenu = (BottomBar) findViewById(R.id.bottom_menu);
         navigationManager = new NavigationManager(getSupportFragmentManager(), this);
 
         if (findViewById(R.id.fragment_container) != null) {
@@ -40,10 +37,6 @@ public class BaseActivity extends AppCompatActivity {
                 return;
             }
         }
-
-        bottomMenu.setOnTabSelectListener(tabId -> {
-            //
-        });
 
         searchResults = (SearchResultsView) findViewById(R.id.search_results);
         searchResults.getSearchResultClicks().subscribe(this::openBandResult);

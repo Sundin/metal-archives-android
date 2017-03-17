@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_base"
     android:layout_width="match_parent"
@@ -19,22 +18,11 @@
     <RelativeLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_menu" />
+        android:layout_height="match_parent" />
 
     <se.kicksort.metalarchives.search.SearchResultsView
         android:id="@+id/search_results"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-    <com.roughike.bottombar.BottomBar
-        android:id="@+id/bottom_menu"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimaryDark"
-        app:bb_behavior="shifting"
-        app:bb_showShadow="false"
-        app:bb_tabXmlResource="@xml/menu_tabs" />
 
 </RelativeLayout>
