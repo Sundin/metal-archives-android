@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
@@ -76,5 +77,9 @@ public class AlbumFragment extends Fragment {
             divider.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             binding.songSection.addView(divider);
         }
+    }
+
+    public Observable<Integer> getScrollEvents() {
+        return scrollSubject;
     }
 }
