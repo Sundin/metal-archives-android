@@ -14,6 +14,7 @@ import com.roughike.bottombar.BottomBar;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import se.kicksort.metalarchives.model.Band;
+import se.kicksort.metalarchives.model.BandSearchResult;
 import se.kicksort.metalarchives.network.BandController;
 
 /**
@@ -22,6 +23,7 @@ import se.kicksort.metalarchives.network.BandController;
 
 public class BaseActivity extends AppCompatActivity {
     public NavigationManager navigationManager;
+    private BandController bandController = new BandController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +44,13 @@ public class BaseActivity extends AppCompatActivity {
             //
         });
 
-        BandController bandController = new BandController();
-        bandController.getBand("3540327224")
+        /*bandController.getBand("3540327224")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(band -> {
                     Log.d("BASE_", band.getBandName());
                     openBand(band);
-                });
+                });*/
     }
 
     private void openBand(Band band) {
@@ -80,12 +81,21 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 Log.d("TAG", "onQueryTextSubmit ");
+                bandController.searchByBandName(s)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(results -> {
+                            for (BandSearchResult band : results) {
+                                Log.d("TAG", band.getBandName());
+                            }
+                        });
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
                 Log.d("TAG", "onQueryTextChange ");
+
                 return false;
             }
         });
