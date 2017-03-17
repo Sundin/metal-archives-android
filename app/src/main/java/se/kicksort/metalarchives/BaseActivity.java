@@ -31,6 +31,7 @@ public class BaseActivity extends AppCompatActivity {
 
         navigationManager = new NavigationManager(getSupportFragmentManager(), this);
         navigationManager.getScrollEvents().subscribe(this::handleScroll);
+        NavigationManager.getInstance().openStartView();
 
         searchResults = (SearchResultsView) findViewById(R.id.search_results);
         searchResults.getSearchResultClicks().subscribe(this::openBandResult);

@@ -58,6 +58,7 @@ public class NavigationManager {
             baseActivity.moveTaskToBack(false);
         } else {
             fragmentManager.popBackStackImmediate();
+            baseActivity.showSearchBar();
         }
     }
 
@@ -75,6 +76,11 @@ public class NavigationManager {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void openStartView() {
+        StartFragment fragment = new StartFragment();
+        openAsRoot(fragment);
     }
 
     public void openAlbum(String albumId) {
