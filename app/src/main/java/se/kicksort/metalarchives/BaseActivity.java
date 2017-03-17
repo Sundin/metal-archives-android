@@ -32,12 +32,6 @@ public class BaseActivity extends AppCompatActivity {
         navigationManager = new NavigationManager(getSupportFragmentManager(), this);
         navigationManager.getScrollEvents().subscribe(this::handleScroll);
 
-        if (findViewById(R.id.fragment_container) != null) {
-            if (savedInstanceState != null) {
-                return;
-            }
-        }
-
         searchResults = (SearchResultsView) findViewById(R.id.search_results);
         searchResults.getSearchResultClicks().subscribe(this::openBandResult);
     }
