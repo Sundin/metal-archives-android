@@ -48,6 +48,10 @@ public class BaseActivity extends AppCompatActivity {
         lastScrollY = scrollY;
     }
 
+    public void showSearchBar() {
+        getSupportActionBar().show();
+    }
+
     private void openBandResult(BandSearchResult bandSearchResult) {
         hideKeyboard();
         NavigationManager.getInstance().openBand(bandSearchResult.getId());

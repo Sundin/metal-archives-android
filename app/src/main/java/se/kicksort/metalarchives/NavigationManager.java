@@ -17,10 +17,10 @@ import se.kicksort.metalarchives.band.BandFragment;
 
 public class NavigationManager {
     private FragmentManager fragmentManager;
-    private Activity baseActivity;
+    private BaseActivity baseActivity;
     private static NavigationManager instance;
 
-    public NavigationManager(FragmentManager fragmentManager, Activity baseActivity) {
+    public NavigationManager(FragmentManager fragmentManager, BaseActivity baseActivity) {
         this.fragmentManager = fragmentManager;
         this.baseActivity = baseActivity;
         instance = this;
@@ -82,6 +82,7 @@ public class NavigationManager {
         fragment.setAlbumId(albumId);
         open(fragment);
         fragment.getScrollEvents().subscribe(scrollSubject::onNext);
+        baseActivity.showSearchBar();
     }
 
     public void openBand(String bandId) {
@@ -89,6 +90,7 @@ public class NavigationManager {
         bandFragment.setBandId(bandId);
         NavigationManager.getInstance().open(bandFragment);
         bandFragment.getScrollEvents().subscribe(scrollSubject::onNext);
+        baseActivity.showSearchBar();
     }
 
     private final PublishSubject<Integer> scrollSubject = PublishSubject.create();

@@ -1,5 +1,7 @@
 package se.kicksort.metalarchives.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,17 +12,33 @@ import com.google.gson.annotations.SerializedName;
 public class BandMember {
     @SerializedName("name")
     @Expose
-    private String name;
+    private String name = "";
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private String id = "";
 
     @SerializedName("instrument")
     @Expose
-    private String instrument;
+    private String instrument = "";
 
     @SerializedName("years")
     @Expose
-    private String years;
+    private String years = "";
+
+    public String getName() {
+        return name.replaceAll("&nbsp;","");
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getInstrument() {
+        return instrument.replaceAll("&nbsp;","");
+    }
+
+    public String getYears() {
+        return years.replaceAll("&nbsp;","");
+    }
 }

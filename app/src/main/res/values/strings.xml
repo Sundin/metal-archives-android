@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Metal Archives</string>
     <string name="search_hint">Search Metal Archives</string>
+    <string name="album_lineup_header">LINEUP</string>
+    <string name="members_section_header">MEMBERS</string>
 </resources>

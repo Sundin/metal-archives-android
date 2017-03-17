@@ -15,7 +15,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.R;
+import se.kicksort.metalarchives.band.MemberListEntry;
 import se.kicksort.metalarchives.databinding.AlbumFragmentBinding;
+import se.kicksort.metalarchives.model.BandMember;
 import se.kicksort.metalarchives.model.CompleteAlbumInfo;
 import se.kicksort.metalarchives.model.Song;
 import se.kicksort.metalarchives.network.AlbumController;
@@ -76,6 +78,17 @@ public class AlbumFragment extends Fragment {
             divider.setMinimumHeight(1);
             divider.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             binding.songSection.addView(divider);
+        }
+
+        for (BandMember member : album.getLineup()) {
+            MemberListEntry memberView = new MemberListEntry(getContext());
+            memberView.setMember(member);
+            binding.membersSection.addView(memberView);
+
+            View divider = new View(getContext());
+            divider.setMinimumHeight(1);
+            divider.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            binding.membersSection.addView(divider);
         }
     }
 
