@@ -14,6 +14,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import se.kicksort.metalarchives.NavigationManager;
 import se.kicksort.metalarchives.R;
 import se.kicksort.metalarchives.databinding.BandFragmentBinding;
 import se.kicksort.metalarchives.model.Album;
@@ -69,6 +70,7 @@ public class BandFragment extends Fragment {
         for (Album album : band.getDiscography()) {
             AlbumListEntry albumView = new AlbumListEntry(getContext());
             albumView.setAlbum(album);
+            albumView.setOnClickListener(view -> NavigationManager.getInstance().openAlbumFragment(album.getId()));
             binding.discographySection.addView(albumView);
 
             View divider = new View(getContext());
