@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import se.kicksort.metalarchives.album.AlbumFragment;
+
 /**
  * Created by Gustav Sundin on 06/01/17.
  */
@@ -70,5 +72,11 @@ public class NavigationManager {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void openAlbumFragment(String albumId) {
+        AlbumFragment fragment = new AlbumFragment();
+        fragment.setAlbumId(albumId);
+        open(fragment);
     }
 }

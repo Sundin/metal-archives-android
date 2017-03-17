@@ -24,6 +24,10 @@ public class Album {
     @Expose
     private String year;
 
+    public String getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }
