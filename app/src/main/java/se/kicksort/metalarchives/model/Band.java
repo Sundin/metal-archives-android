@@ -61,4 +61,8 @@ public class Band {
     public ArrayList<Album> getDiscography() {
         return discography;
     }
+
+    public ArrayList<BandMember> getCurrentLineup() {
+        return currentLineup;
+    }
 }

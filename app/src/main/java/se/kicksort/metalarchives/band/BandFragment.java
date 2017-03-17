@@ -19,6 +19,7 @@ import se.kicksort.metalarchives.R;
 import se.kicksort.metalarchives.databinding.BandFragmentBinding;
 import se.kicksort.metalarchives.model.Album;
 import se.kicksort.metalarchives.model.Band;
+import se.kicksort.metalarchives.model.BandMember;
 import se.kicksort.metalarchives.network.BandController;
 
 /**
@@ -81,6 +82,17 @@ public class BandFragment extends Fragment {
             divider.setMinimumHeight(1);
             divider.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             binding.discographySection.addView(divider);
+        }
+
+        for (BandMember member : band.getCurrentLineup()) {
+            MemberListEntry memberView = new MemberListEntry(getContext());
+            memberView.setMember(member);
+            binding.membersSection.addView(memberView);
+
+            View divider = new View(getContext());
+            divider.setMinimumHeight(1);
+            divider.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            binding.membersSection.addView(divider);
         }
     }
 

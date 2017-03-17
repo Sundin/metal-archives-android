@@ -34,6 +34,7 @@
                 style="@style/band_name_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@{album.title}" />
 
             <TextView
@@ -47,6 +48,21 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/members_section"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/album_lineup_header" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
