@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -13,11 +12,8 @@ import android.widget.SearchView;
 
 import com.roughike.bottombar.BottomBar;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import se.kicksort.metalarchives.model.Band;
+import se.kicksort.metalarchives.band.BandFragment;
 import se.kicksort.metalarchives.model.BandSearchResult;
-import se.kicksort.metalarchives.network.BandController;
 import se.kicksort.metalarchives.search.SearchResultsView;
 
 /**
@@ -26,7 +22,6 @@ import se.kicksort.metalarchives.search.SearchResultsView;
 
 public class BaseActivity extends AppCompatActivity {
     public NavigationManager navigationManager;
-    private BandController bandController = new BandController();
     private SearchResultsView searchResults;
 
     @Override
@@ -54,19 +49,12 @@ public class BaseActivity extends AppCompatActivity {
 
     private void openBandResult(BandSearchResult bandSearchResult) {
         hideKeyboard();
-        bandController.getBand(bandSearchResult.getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(band -> {
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-                    recyclerView.setVisibility(View.INVISIBLE);
-                    openBand(band);
-                });
+        openBand(bandSearchResult.getId());
     }
 
-    private void openBand(Band band) {
+    private void openBand(String bandId) {
         BandFragment bandFragment = new BandFragment();
-        bandFragment.setBand(band);
+        bandFragment.setBandId(bandId);
         NavigationManager.getInstance().open(bandFragment);
     }
 

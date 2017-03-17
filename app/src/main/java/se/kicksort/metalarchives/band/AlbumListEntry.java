@@ -1,4 +1,4 @@
-package se.kicksort.metalarchives;
+package se.kicksort.metalarchives.band;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
+import se.kicksort.metalarchives.R;
 import se.kicksort.metalarchives.databinding.AlbumListEntryBinding;
 import se.kicksort.metalarchives.model.Album;
 

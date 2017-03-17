@@ -14,6 +14,7 @@ import java.util.Comparator;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.R;
 import se.kicksort.metalarchives.databinding.SearchResultsFragmentBinding;
 import se.kicksort.metalarchives.model.BandSearchResult;
@@ -29,6 +30,7 @@ public class SearchResultsView extends LinearLayout {
     private BandController bandController = new BandController();
     private ExampleAdapter mAdapter;
     private SearchViewQueryListener queryListener = new SearchViewQueryListener();
+    private PublishSubject<BandSearchResult> clickSubject = PublishSubject.create();
 
     private static final Comparator<BandSearchResult> ALPHABETICAL_COMPARATOR = (a, b) -> a.getBandName().compareTo(b.getBandName());
 
@@ -42,6 +44,11 @@ public class SearchResultsView extends LinearLayout {
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(mAdapter);
+
+        mAdapter.getSearchResultClicks().subscribe(band -> {
+            clickSubject.onNext(band);
+            binding.recyclerView.setVisibility(View.INVISIBLE);
+        });
     }
 
     public SearchResultsView(Context context) {
@@ -49,7 +56,7 @@ public class SearchResultsView extends LinearLayout {
     }
 
     public Observable<BandSearchResult> getSearchResultClicks() {
-        return mAdapter.getSearchResultClicks();
+        return clickSubject;
     }
 
     public SearchViewQueryListener getQueryListener() {

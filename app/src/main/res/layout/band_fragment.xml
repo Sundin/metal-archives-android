@@ -23,6 +23,12 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+
             <ImageView
                 android:id="@+id/band_logo"
                 android:layout_width="wrap_content"
