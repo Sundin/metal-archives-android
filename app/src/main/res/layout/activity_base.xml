@@ -15,6 +15,11 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_menu" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottom_menu"
         android:layout_width="match_parent"

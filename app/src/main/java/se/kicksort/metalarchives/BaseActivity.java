@@ -4,6 +4,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,11 +13,15 @@ import android.widget.SearchView;
 
 import com.roughike.bottombar.BottomBar;
 
+import java.util.Comparator;
+import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import se.kicksort.metalarchives.model.Band;
 import se.kicksort.metalarchives.model.BandSearchResult;
 import se.kicksort.metalarchives.network.BandController;
+import se.kicksort.metalarchives.search.ExampleAdapter;
 
 /**
  * Created by Gustav Sundin on 01/03/17.
@@ -43,6 +49,12 @@ public class BaseActivity extends AppCompatActivity {
         bottomMenu.setOnTabSelectListener(tabId -> {
             //
         });
+
+        mAdapter = new ExampleAdapter(this, ALPHABETICAL_COMPARATOR);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mAdapter);
 
         /*bandController.getBand("3540327224")
                 .subscribeOn(Schedulers.io())
@@ -80,21 +92,21 @@ public class BaseActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                Log.d("TAG", "onQueryTextSubmit ");
-                bandController.searchByBandName(s)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(results -> {
-                            for (BandSearchResult band : results) {
-                                Log.d("TAG", band.getBandName());
-                            }
-                        });
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                Log.d("TAG", "onQueryTextChange ");
+                mAdapter.removeAll();
+                bandController.searchByBandName(s)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(results -> {
+                            for (BandSearchResult band : results) {
+                                mAdapter.add(band);
+                                Log.d("TAG", band.getBandName());
+                            }
+                        });
 
                 return false;
             }
@@ -102,4 +114,15 @@ public class BaseActivity extends AppCompatActivity {
 
         return true;
     }
+
+    private static final Comparator<BandSearchResult> ALPHABETICAL_COMPARATOR = new Comparator<BandSearchResult>() {
+        @Override
+        public int compare(BandSearchResult a, BandSearchResult b) {
+            return a.getBandName().compareTo(b.getBandName());
+        }
+    };
+
+    private ExampleAdapter mAdapter;
+    private List<BandSearchResult> mModels;
+    private RecyclerView mRecyclerView;
 }
