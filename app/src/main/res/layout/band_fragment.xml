@@ -94,6 +94,11 @@
                     mstb:mstbPrimaryColor="@color/colorPrimary"
                     mstb:mstbSecondaryColor="@color/colorAccent"/>
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/discography_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
             </LinearLayout>
 
             <LinearLayout
