@@ -35,6 +35,7 @@ public class BandFragment extends Fragment {
     private BandController bandController = new BandController();
 
     private AlbumAdapter albumAdapter;
+    private MembersAdapter membersAdapter;
 
     private final PublishSubject<Integer> scrollSubject = PublishSubject.create();
 
@@ -55,6 +56,15 @@ public class BandFragment extends Fragment {
         binding.discographyRecyclerView.setAdapter(albumAdapter);
 
         albumAdapter.getClicks().subscribe(album -> NavigationManager.getInstance().openAlbum(album.getId()));
+
+        final Comparator<BandMember> ALPHABETICAL_COMPARATOR = (a, b) -> a.getName().compareTo(b.getName());
+        membersAdapter = new MembersAdapter(getContext(), ALPHABETICAL_COMPARATOR);
+
+        binding.membersRecyclerView.addItemDecoration(new CustomDividerItemDecoration(getContext()));
+        binding.membersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.membersRecyclerView.setAdapter(membersAdapter);
+
+        membersAdapter.getClicks().subscribe(member -> {});
 
         binding.discographyToggle.setOnValueChangedListener(this::showDiscographySection);
         binding.membersToggle.setOnValueChangedListener(this::showMembersSection);
@@ -91,17 +101,7 @@ public class BandFragment extends Fragment {
         }
 
         albumAdapter.edit().replaceAll(band.getDiscography()).commit();
-
-        for (BandMember member : band.getCurrentLineup()) {
-            MemberListEntry memberView = new MemberListEntry(getContext());
-            memberView.setMember(member);
-            binding.membersSection.addView(memberView);
-
-            View divider = new View(getContext());
-            divider.setMinimumHeight(1);
-            divider.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            binding.membersSection.addView(divider);
-        }
+        membersAdapter.edit().replaceAll(band.getCurrentLineup()).commit();
     }
 
     private void showDiscographySection(int position) {

@@ -1,7 +1,6 @@
 package se.kicksort.metalarchives.model;
 
-import android.util.Log;
-
+import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Gustav Sundin on 10/03/17.
  */
 
-public class BandMember {
+public class BandMember implements SortedListAdapter.ViewModel {
     @SerializedName("name")
     @Expose
     private String name = "";
@@ -30,7 +29,7 @@ public class BandMember {
         if (name == null) {
             return "";
         }
-        return name.replaceAll("&nbsp;","");
+        return name.replaceAll("&nbsp;", "");
     }
 
     public String getId() {
@@ -41,13 +40,37 @@ public class BandMember {
         if (instrument == null) {
             return "";
         }
-        return instrument.replaceAll("&nbsp;","");
+        return instrument.replaceAll("&nbsp;", "");
     }
 
     public String getYears() {
         if (years == null) {
             return "";
         }
-        return years.replaceAll("&nbsp;","");
+        return years.replaceAll("&nbsp;", "");
+    }
+
+    @Override
+    public <T> boolean isSameModelAs(T item) {
+        if (item instanceof BandMember) {
+            final BandMember other = (BandMember) item;
+            return other.id.equals(id);
+        }
+        return false;
+    }
+
+    @Override
+    public <T> boolean isContentTheSameAs(T item) {
+        if (item instanceof BandMember) {
+            final BandMember other = (BandMember) item;
+            if (!name.equals(other.name)) {
+                return false;
+            }
+            if (!instrument.equals(other.instrument)) {
+                return false;
+            }
+            return years != null ? years.equals(other.years) : other.years == null;
+        }
+        return false;
     }
 }
