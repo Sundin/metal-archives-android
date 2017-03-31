@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mstb="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -83,6 +85,15 @@
                     android:padding="16dp"
                     android:text="@string/discography_section_header" />
 
+                <org.honorato.multistatetogglebutton.MultiStateToggleButton
+                    android:id="@+id/discography_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    mstb:values="@array/discography_array"
+                    mstb:mstbPrimaryColor="@color/colorPrimary"
+                    mstb:mstbSecondaryColor="@color/colorAccent"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -97,6 +108,15 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:text="@string/members_section_header" />
+
+                <org.honorato.multistatetogglebutton.MultiStateToggleButton
+                    android:id="@+id/members_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    mstb:values="@array/members_array"
+                    mstb:mstbPrimaryColor="@color/colorPrimary"
+                    mstb:mstbSecondaryColor="@color/colorAccent"/>
 
             </LinearLayout>
 

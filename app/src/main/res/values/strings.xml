@@ -4,4 +4,18 @@
     <string name="album_lineup_header">LINEUP</string>
     <string name="members_section_header">MEMBERS</string>
     <string name="discography_section_header">DISCOGRAPHY</string>
+
+    <string-array name="discography_array">
+        <item>Complete</item>
+        <item>Main</item>
+        <item>Live</item>
+        <item>Demos</item>
+        <item>Misc</item>
+    </string-array>
+
+    <string-array name="members_array">
+        <item>Current</item>
+        <item>Past</item>
+        <item>Live</item>
+    </string-array>
 </resources>

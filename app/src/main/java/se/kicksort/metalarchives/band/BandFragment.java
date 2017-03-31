@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,9 @@ public class BandFragment extends Fragment {
             loadBandData();
         }
 
+        binding.discographyToggle.setOnValueChangedListener(this::showDiscographySection);
+        binding.membersToggle.setOnValueChangedListener(this::showMembersSection);
+
         binding.scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> scrollSubject.onNext(binding.scrollView.getScrollY()));
 
         return binding.getRoot();
@@ -68,6 +72,7 @@ public class BandFragment extends Fragment {
         if (!band.getLogoUrl().equals("")) {
             Picasso.with(getContext()).load(band.getLogoUrl()).into(binding.bandLogo);
         }
+
         if (!band.getPhotoUrl().equals("")) {
             Picasso.with(getContext()).load(band.getPhotoUrl()).into(binding.bandPhoto);
         }
@@ -94,6 +99,14 @@ public class BandFragment extends Fragment {
             divider.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             binding.membersSection.addView(divider);
         }
+    }
+
+    private void showDiscographySection(int position) {
+
+    }
+
+    private void showMembersSection(int position) {
+
     }
 
     public Observable<Integer> getScrollEvents() {
