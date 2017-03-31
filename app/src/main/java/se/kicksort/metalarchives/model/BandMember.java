@@ -27,6 +27,9 @@ public class BandMember {
     private String years = "";
 
     public String getName() {
+        if (name == null) {
+            return "";
+        }
         return name.replaceAll("&nbsp;","");
     }
 
@@ -35,10 +38,16 @@ public class BandMember {
     }
 
     public String getInstrument() {
+        if (instrument == null) {
+            return "";
+        }
         return instrument.replaceAll("&nbsp;","");
     }
 
     public String getYears() {
+        if (years == null) {
+            return "";
+        }
         return years.replaceAll("&nbsp;","");
     }
 }
