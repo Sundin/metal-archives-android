@@ -54,6 +54,9 @@ public class Album implements SortedListAdapter.ViewModel {
     public <T> boolean isContentTheSameAs(T item) {
         if (item instanceof Album) {
             final Album other = (Album) item;
+            if (!id.equals(other.id)) {
+                return false;
+            }
             if (!title.equals(other.title)) {
                 return false;
             }

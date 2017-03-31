@@ -59,7 +59,7 @@ public class Band {
     }
 
     public ArrayList<Album> getDiscography() {
-        return discography;
+        return new ArrayList<>(discography);
     }
 
     public ArrayList<BandMember> getCurrentLineup() {

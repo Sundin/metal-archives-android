@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 import io.reactivex.Observable;
@@ -34,6 +35,7 @@ import se.kicksort.metalarchives.network.BandController;
 public class BandFragment extends Fragment {
     private BandFragmentBinding binding;
     private String bandId = null;
+    private Band band;
     private BandController bandController = new BandController();
 
     private AlbumAdapter albumAdapter;
@@ -95,6 +97,7 @@ public class BandFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(band -> {
+                    this.band = band;
                     binding.progressBar.setVisibility(View.INVISIBLE);
                     displayBand(band);
                 });
@@ -117,7 +120,41 @@ public class BandFragment extends Fragment {
     }
 
     private void showDiscographySection(int position) {
+        ArrayList<Album> albumsToShow;
 
+        String selectedSection = getResources().getStringArray(R.array.discography_array)[position];
+
+        if (selectedSection.equalsIgnoreCase("main")) {
+            albumsToShow = filterAlbums("full-length");
+        } else if (selectedSection.equalsIgnoreCase("live")) {
+            albumsToShow = filterAlbums("live album");
+            albumsToShow.addAll(filterAlbums("video"));
+        } else if (selectedSection.equalsIgnoreCase("demos")) {
+            albumsToShow = filterAlbums("demo");
+        } else if (selectedSection.equalsIgnoreCase("misc")) {
+            albumsToShow = band.getDiscography();
+            albumsToShow.removeAll(filterAlbums("full-length"));
+            albumsToShow.removeAll(filterAlbums("live album"));
+            albumsToShow.removeAll(filterAlbums("video"));
+            albumsToShow.removeAll(filterAlbums("demo"));
+        } else {
+            albumsToShow = band.getDiscography();
+        }
+
+
+        albumAdapter.edit().replaceAll(albumsToShow).commit();
+    }
+
+    ArrayList<Album> filterAlbums(String type) {
+        final ArrayList<Album> filteredList = new ArrayList<>();
+
+        for (Album album : band.getDiscography()) {
+            if (album.getType().equalsIgnoreCase(type)) {
+                filteredList.add(album);
+            }
+        }
+
+        return filteredList;
     }
 
     private void showMembersSection(int position) {
