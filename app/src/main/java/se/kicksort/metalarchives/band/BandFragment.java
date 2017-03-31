@@ -146,7 +146,7 @@ public class BandFragment extends Fragment {
         albumAdapter.edit().replaceAll(albumsToShow).commit();
     }
 
-    ArrayList<Album> filterAlbums(String[] types) {
+    private ArrayList<Album> filterAlbums(String[] types) {
         final ArrayList<Album> filteredList = new ArrayList<>();
 
         for (Album album : band.getDiscography()) {
@@ -161,7 +161,39 @@ public class BandFragment extends Fragment {
     }
 
     private void showMembersSection(int position) {
+        ArrayList<BandMember> membersToShow;
 
+        String selectedSection = getResources().getStringArray(R.array.members_array)[position];
+
+        if (selectedSection.equalsIgnoreCase("current")) {
+            String[] filter = {"current"};
+            membersToShow = filterBandMembers(filter);
+        } else if (selectedSection.equalsIgnoreCase("past")) {
+            String[] filter = {"live album", "video"};
+            membersToShow = filterBandMembers(filter);
+        } else if (selectedSection.equalsIgnoreCase("live")) {
+            String[] filter = {"demo"};
+            membersToShow = filterBandMembers(filter);
+        } else {
+            membersToShow = band.getCurrentLineup();
+        }
+
+        membersAdapter.edit().removeAll().commit();
+        membersAdapter.edit().replaceAll(membersToShow).commit();
+    }
+
+    private ArrayList<BandMember> filterBandMembers(String[] statuses) {
+        final ArrayList<BandMember> filteredList = new ArrayList<>();
+
+        for (BandMember member : band.getCurrentLineup()) {
+            for (String status : statuses) {
+                if (member.getStatus().equalsIgnoreCase(status)) {
+                    filteredList.add(member);
+                }
+            }
+        }
+
+        return filteredList;
     }
 
     public Observable<Integer> getScrollEvents() {

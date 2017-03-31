@@ -25,6 +25,8 @@ public class BandMember implements SortedListAdapter.ViewModel {
     @Expose
     private String years = "";
 
+    private String status = "current"; // past / live
+
     public String getName() {
         if (name == null) {
             return "";
@@ -48,6 +50,10 @@ public class BandMember implements SortedListAdapter.ViewModel {
             return "";
         }
         return years.replaceAll("&nbsp;", "");
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     @Override
