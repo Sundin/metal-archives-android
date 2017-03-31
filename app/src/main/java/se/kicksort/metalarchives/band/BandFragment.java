@@ -4,12 +4,14 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.Comparator;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -32,6 +34,8 @@ public class BandFragment extends Fragment {
     private String bandId = null;
     private BandController bandController = new BandController();
 
+    private AlbumAdapter albumAdapter;
+
     private final PublishSubject<Integer> scrollSubject = PublishSubject.create();
 
     @Nullable
@@ -42,6 +46,15 @@ public class BandFragment extends Fragment {
         if (bandId != null) {
             loadBandData();
         }
+
+        final Comparator<Album> CHRONOLOGICAL_COMPARATOR = (a, b) -> a.getYear().compareTo(b.getYear());
+        albumAdapter = new AlbumAdapter(getContext(), CHRONOLOGICAL_COMPARATOR);
+
+        binding.discographyRecyclerView.addItemDecoration(new CustomDividerItemDecoration(getContext()));
+        binding.discographyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.discographyRecyclerView.setAdapter(albumAdapter);
+
+        albumAdapter.getClicks().subscribe(album -> NavigationManager.getInstance().openAlbum(album.getId()));
 
         binding.discographyToggle.setOnValueChangedListener(this::showDiscographySection);
         binding.membersToggle.setOnValueChangedListener(this::showMembersSection);
@@ -77,17 +90,7 @@ public class BandFragment extends Fragment {
             Picasso.with(getContext()).load(band.getPhotoUrl()).into(binding.bandPhoto);
         }
 
-        for (Album album : band.getDiscography()) {
-            AlbumListEntry albumView = new AlbumListEntry(getContext());
-            albumView.setAlbum(album);
-            albumView.setOnClickListener(view -> NavigationManager.getInstance().openAlbum(album.getId()));
-            binding.discographySection.addView(albumView);
-
-            View divider = new View(getContext());
-            divider.setMinimumHeight(1);
-            divider.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            binding.discographySection.addView(divider);
-        }
+        albumAdapter.edit().replaceAll(band.getDiscography()).commit();
 
         for (BandMember member : band.getCurrentLineup()) {
             MemberListEntry memberView = new MemberListEntry(getContext());

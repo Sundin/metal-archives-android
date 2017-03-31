@@ -1,5 +1,6 @@
 package se.kicksort.metalarchives.model;
 
+import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Gustav Sundin on 10/03/17.
  */
 
-public class Album {
+public class Album implements SortedListAdapter.ViewModel {
     @SerializedName("title")
     @Expose
     private String title;
@@ -38,5 +39,29 @@ public class Album {
 
     public String getType() {
         return type;
+    }
+
+    @Override
+    public <T> boolean isSameModelAs(T item) {
+        if (item instanceof Album) {
+            final Album other = (Album) item;
+            return other.id.equals(id);
+        }
+        return false;
+    }
+
+    @Override
+    public <T> boolean isContentTheSameAs(T item) {
+        if (item instanceof Album) {
+            final Album other = (Album) item;
+            if (!title.equals(other.title)) {
+                return false;
+            }
+            if (!type.equals(other.type)) {
+                return false;
+            }
+            return year != null ? year.equals(other.year) : other.year == null;
+        }
+        return false;
     }
 }
