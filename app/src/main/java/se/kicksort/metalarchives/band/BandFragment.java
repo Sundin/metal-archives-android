@@ -125,32 +125,35 @@ public class BandFragment extends Fragment {
         String selectedSection = getResources().getStringArray(R.array.discography_array)[position];
 
         if (selectedSection.equalsIgnoreCase("main")) {
-            albumsToShow = filterAlbums("full-length");
+            String[] filter = {"full-length"};
+            albumsToShow = filterAlbums(filter);
         } else if (selectedSection.equalsIgnoreCase("live")) {
-            albumsToShow = filterAlbums("live album");
-            albumsToShow.addAll(filterAlbums("video"));
+            String[] filter = {"live album", "video"};
+            albumsToShow = filterAlbums(filter);
         } else if (selectedSection.equalsIgnoreCase("demos")) {
-            albumsToShow = filterAlbums("demo");
+            String[] filter = {"demo"};
+            albumsToShow = filterAlbums(filter);
         } else if (selectedSection.equalsIgnoreCase("misc")) {
             albumsToShow = band.getDiscography();
-            albumsToShow.removeAll(filterAlbums("full-length"));
-            albumsToShow.removeAll(filterAlbums("live album"));
-            albumsToShow.removeAll(filterAlbums("video"));
-            albumsToShow.removeAll(filterAlbums("demo"));
+            String[] filter = {"full-length","live album", "video", "demo"};
+            ArrayList<Album> albumsToRemove = filterAlbums(filter);
+            albumsToShow.removeAll(albumsToRemove);
         } else {
             albumsToShow = band.getDiscography();
         }
 
-
+        albumAdapter.edit().removeAll().commit();
         albumAdapter.edit().replaceAll(albumsToShow).commit();
     }
 
-    ArrayList<Album> filterAlbums(String type) {
+    ArrayList<Album> filterAlbums(String[] types) {
         final ArrayList<Album> filteredList = new ArrayList<>();
 
         for (Album album : band.getDiscography()) {
-            if (album.getType().equalsIgnoreCase(type)) {
-                filteredList.add(album);
+            for (String type : types) {
+                if (album.getType().equalsIgnoreCase(type)) {
+                    filteredList.add(album);
+                }
             }
         }
 
