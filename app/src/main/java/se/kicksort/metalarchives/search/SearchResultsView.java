@@ -79,13 +79,13 @@ public class SearchResultsView extends LinearLayout {
         private void handleSearch(String query) {
             binding.recyclerView.setVisibility(View.VISIBLE);
 
-            mAdapter.removeAll();
+            mAdapter.edit().removeAll().commit();
             bandController.searchByBandName(query)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(results -> {
                         for (BandSearchResult band : results) {
-                            mAdapter.add(band);
+                            mAdapter.edit().add(band).commit();
                         }
                     });
 

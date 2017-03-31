@@ -1,5 +1,6 @@
 package se.kicksort.metalarchives.model;
 
+import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Gustav Sundin on 13/03/17.
  */
 
-public class BandSearchResult {
+public class BandSearchResult implements SortedListAdapter.ViewModel {
     @SerializedName("name")
     @Expose
     private String name;
@@ -50,8 +51,8 @@ public class BandSearchResult {
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (genre != null ? !genre.equals(that.genre) : that.genre != null) return false;
-        return country != null ? country.equals(that.country) : that.country == null;
 
+        return country != null ? country.equals(that.country) : that.country == null;
     }
 
     @Override
@@ -60,6 +61,31 @@ public class BandSearchResult {
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (genre != null ? genre.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
+
         return result;
+    }
+
+    @Override
+    public <T> boolean isSameModelAs(T item) {
+        if (item instanceof BandSearchResult) {
+            final BandSearchResult other = (BandSearchResult) item;
+            return other.id.equals(id);
+        }
+        return false;
+    }
+
+    @Override
+    public <T> boolean isContentTheSameAs(T item) {
+        if (item instanceof BandSearchResult) {
+            final BandSearchResult other = (BandSearchResult) item;
+            if (!name.equals(other.name)) {
+                return false;
+            }
+            if (!country.equals(other.country)) {
+                return false;
+            }
+            return genre != null ? genre.equals(other.genre) : other.genre == null;
+        }
+        return false;
     }
 }
