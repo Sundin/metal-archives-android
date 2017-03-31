@@ -46,13 +46,7 @@ public class BandSearchResult implements SortedListAdapter.ViewModel {
         if (this == o) return true;
         if (!(o instanceof BandSearchResult)) return false;
 
-        BandSearchResult that = (BandSearchResult) o;
-
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (genre != null ? !genre.equals(that.genre) : that.genre != null) return false;
-
-        return country != null ? country.equals(that.country) : that.country == null;
+        return isSameModelAs(o) && isContentTheSameAs(o);
     }
 
     @Override
