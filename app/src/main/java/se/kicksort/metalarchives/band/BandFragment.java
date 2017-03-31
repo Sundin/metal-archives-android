@@ -68,6 +68,7 @@ public class BandFragment extends Fragment {
         setupRecyclerView(binding.discographyRecyclerView, albumAdapter);
 
         binding.discographyToggle.setOnValueChangedListener(this::showDiscographySection);
+        binding.discographyToggle.setStates(new boolean[] {true, false, false, false, false});
     }
 
     private void setupMembersSection() {
@@ -80,6 +81,7 @@ public class BandFragment extends Fragment {
         setupRecyclerView(binding.membersRecyclerView, membersAdapter);
 
         binding.membersToggle.setOnValueChangedListener(this::showMembersSection);
+        binding.membersToggle.setStates(new boolean[] {true, false, false});
     }
 
     private void setupRecyclerView(RecyclerView recyclerView, SortedListAdapter adapter) {
@@ -115,7 +117,14 @@ public class BandFragment extends Fragment {
             Picasso.with(getContext()).load(band.getPhotoUrl()).into(binding.bandPhoto);
         }
 
-        albumAdapter.edit().replaceAll(band.getDiscography()).commit();
+        if (band.getDiscography().size() >= 20) {
+            // Show only full length albums
+            binding.discographyToggle.setStates(new boolean[] {false, true, false, false, false});
+            showDiscographySection(1);
+        } else {
+            albumAdapter.edit().replaceAll(band.getDiscography()).commit();
+        }
+
         membersAdapter.edit().replaceAll(band.getCurrentLineup()).commit();
     }
 
