@@ -38,19 +38,23 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void handleScroll(int scrollY) {
-        int deltaY = scrollY - lastScrollY;
+       /* int deltaY = scrollY - lastScrollY;
 
         if (scrollY < 10 && deltaY < 0) {
-            getSupportActionBar().show();
+            showSearchBar();
         } else if (scrollY > 20) {
-            getSupportActionBar().hide();
+            hideSearchBar();
         }
 
-        lastScrollY = scrollY;
+        lastScrollY = scrollY;*/
     }
 
     public void showSearchBar() {
         getSupportActionBar().show();
+    }
+
+    public void hideSearchBar() {
+        getSupportActionBar().hide();
     }
 
     private void openBandResult(BandSearchResult bandSearchResult) {
