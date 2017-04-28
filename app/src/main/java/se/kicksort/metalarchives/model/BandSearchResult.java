@@ -9,11 +9,11 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class BandSearchResult implements SortedListAdapter.ViewModel {
-    @SerializedName("name")
+    @SerializedName("band_name")
     @Expose
     private String name;
 
-    @SerializedName("id")
+    @SerializedName("_id")
     @Expose
     private String id;
 

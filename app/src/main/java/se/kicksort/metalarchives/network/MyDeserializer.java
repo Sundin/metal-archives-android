@@ -15,11 +15,7 @@ import java.lang.reflect.Type;
 class MyDeserializer<T> implements JsonDeserializer<T> {
     @Override
     public T deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
-        // Get the "content" element from the parsed JSON
-        JsonElement content = je.getAsJsonObject().get("data");
-
-        // Deserialize it. You use a new instance of Gson to avoid infinite recursion
-        // to this deserializer
+        JsonElement content = je.getAsJsonObject();
         return new Gson().fromJson(content, type);
     }
 }
