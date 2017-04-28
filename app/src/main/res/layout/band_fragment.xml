@@ -7,11 +7,7 @@
 
         <variable
             name="band"
-            type="se.kicksort.metalarchives.model.Band" />
-
-        <variable
-            name="bandDetails"
-            type="se.kicksort.metalarchives.model.BandDetails" />
+            type="se.kicksort.metalarchives.model.Band"/>
     </data>
 
     <ScrollView
@@ -29,48 +25,48 @@
                 android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:indeterminate="true" />
+                android:indeterminate="true"/>
 
             <ImageView
                 android:id="@+id/band_logo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <ImageView
                 android:id="@+id/band_photo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <TextView
                 style="@style/band_name_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{band.bandName}" />
+                android:text="@{band.bandName}"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{bandDetails.genre}" />
+                android:text="@{band.genre}"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{bandDetails.fullLocation}" />
+                android:text="@{band.fullLocation}"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{bandDetails.yearsActive}" />
+                android:text="@{band.yearsActive}"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{bandDetails.label}" />
+                android:text="@{band.label}"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorAccent" />
+                android:background="@color/colorAccent"/>
 
             <LinearLayout
                 android:id="@+id/discography_section"
@@ -83,16 +79,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:text="@string/discography_section_header" />
+                    android:text="@string/discography_section_header"/>
 
                 <org.honorato.multistatetogglebutton.MultiStateToggleButton
                     android:id="@+id/discography_toggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dip"
-                    mstb:values="@array/discography_array"
                     mstb:mstbPrimaryColor="@color/colorPrimary"
-                    mstb:mstbSecondaryColor="@color/colorAccent"/>
+                    mstb:mstbSecondaryColor="@color/colorAccent"
+                    mstb:values="@array/discography_array"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/discography_recycler_view"
@@ -112,16 +108,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:text="@string/members_section_header" />
+                    android:text="@string/members_section_header"/>
 
                 <org.honorato.multistatetogglebutton.MultiStateToggleButton
                     android:id="@+id/members_toggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dip"
-                    mstb:values="@array/members_array"
                     mstb:mstbPrimaryColor="@color/colorPrimary"
-                    mstb:mstbSecondaryColor="@color/colorAccent"/>
+                    mstb:mstbSecondaryColor="@color/colorAccent"
+                    mstb:values="@array/members_array"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/members_recycler_view"

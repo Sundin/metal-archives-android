@@ -9,11 +9,11 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Album implements SortedListAdapter.ViewModel {
-    @SerializedName("title")
+    @SerializedName("name")
     @Expose
     private String title;
 
-    @SerializedName("id")
+    @SerializedName("_id")
     @Expose
     private String id;
 
