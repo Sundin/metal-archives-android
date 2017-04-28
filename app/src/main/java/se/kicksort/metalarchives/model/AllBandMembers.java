@@ -23,6 +23,6 @@ public class AllBandMembers {
     private ArrayList<BandMember> liveLineup;
 
     public ArrayList<BandMember> getCurrentLineup() {
-        return currentLineup;
+        return new ArrayList<>(currentLineup);
     }
 }

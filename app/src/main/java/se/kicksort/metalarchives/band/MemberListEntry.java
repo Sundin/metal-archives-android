@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 
 import se.kicksort.metalarchives.R;
 import se.kicksort.metalarchives.databinding.MemberListEntryBinding;
-import se.kicksort.metalarchives.model.Album;
 import se.kicksort.metalarchives.model.BandMember;
 
 /**

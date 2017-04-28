@@ -56,7 +56,7 @@ public class Band {
 
     @SerializedName("discography")
     @Expose
-    private ArrayList<Album> discography;
+    private ArrayList<TinyAlbum> discography;
 
     @SerializedName("members")
     @Expose
@@ -74,7 +74,7 @@ public class Band {
         return photoUrl;
     }
 
-    public ArrayList<Album> getDiscography() {
+    public ArrayList<TinyAlbum> getDiscography() {
         return new ArrayList<>(discography);
     }
 
