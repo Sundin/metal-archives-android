@@ -18,7 +18,7 @@ import se.kicksort.metalarchives.model.SearchResults;
  */
 
 public class BandController {
-    private final String baseUrl = "http://em.wemakesites.net/";
+    private final String baseUrl = "http://192.168.1.62:4567/";
     private Retrofit retrofit;
     private MetalArchivesService metalArchivesService;
 
