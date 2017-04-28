@@ -38,9 +38,17 @@ public class Band {
     @Expose
     private String lyricalThemes;
 
+    @SerializedName("biography")
+    @Expose
+    private String biography;
+
     @SerializedName("label")
     @Expose
     private String label;
+
+    @SerializedName("formed_in")
+    @Expose
+    private String formedIn;
 
     @SerializedName("years_active")
     @Expose
