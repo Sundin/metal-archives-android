@@ -11,4 +11,6 @@ This app is very much work in progress. So far I've implemented the following fe
 * View album: track list, artwork, etc
 
 # Backend
-Right now the app uses the following third-party API: http://em.wemakesites.net (thanks!)
+Right now the app uses the API provided by this project: https://github.com/Sundin/metallum-api
+
+For the moment you have to run the backend locally in order for the app to work.
