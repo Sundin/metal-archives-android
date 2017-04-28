@@ -5,6 +5,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import se.kicksort.metalarchives.model.AlbumWrapper;
 import se.kicksort.metalarchives.model.Band;
+import se.kicksort.metalarchives.model.CompleteAlbumInfo;
 import se.kicksort.metalarchives.model.SearchResults;
 
 /**
@@ -19,5 +20,5 @@ public interface MetalArchivesService {
     Observable<SearchResults> searchByBandName(@Path("query") String query);
 
     @GET("album/{albumId}")
-    Observable<AlbumWrapper> getAlbum(@Path("albumId") String albumId);
+    Observable<CompleteAlbumInfo> getAlbum(@Path("albumId") String albumId);
 }

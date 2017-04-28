@@ -10,15 +10,15 @@ import java.util.ArrayList;
  */
 
 public class CompleteAlbumInfo extends TinyAlbum {
-    @SerializedName("album_cover")
+    @SerializedName("cover_url")
     @Expose
     private String albumCoverUrl;
 
-    @SerializedName("release date")
+    @SerializedName("release_date")
     @Expose
     private String releaseDate;
 
-    @SerializedName("catalog id")
+    @SerializedName("catalog_id")
     @Expose
     private String catalogId;
 
@@ -30,17 +30,13 @@ public class CompleteAlbumInfo extends TinyAlbum {
     @Expose
     private String format;
 
-    @SerializedName("reviews")
+    @SerializedName("limitation")
     @Expose
-    private String reviews;
+    private String limitation;
 
     @SerializedName("songs")
     @Expose
     private ArrayList<Song> songs;
-
-    @SerializedName("personnel")
-    @Expose
-    private ArrayList<BandMember> lineup;
 
     public String getAlbumCoverUrl() {
         return albumCoverUrl;
@@ -62,15 +58,17 @@ public class CompleteAlbumInfo extends TinyAlbum {
         return format;
     }
 
+    //TODO
     public String getReviews() {
-        return reviews;
+        return "";
     }
 
     public ArrayList<Song> getSongs() {
         return songs;
     }
 
+    //TODO
     public ArrayList<BandMember> getLineup() {
-        return lineup;
+        return new ArrayList<>();
     }
 }
