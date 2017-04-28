@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Gustav Sundin on 17/03/17.
  */
 
-public class CompleteAlbumInfo extends Album {
+public class CompleteAlbumInfo extends TinyAlbum {
     @SerializedName("album_cover")
     @Expose
     private String albumCoverUrl;

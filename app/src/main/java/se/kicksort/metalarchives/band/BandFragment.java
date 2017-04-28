@@ -23,9 +23,9 @@ import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.NavigationManager;
 import se.kicksort.metalarchives.R;
 import se.kicksort.metalarchives.databinding.BandFragmentBinding;
-import se.kicksort.metalarchives.model.Album;
 import se.kicksort.metalarchives.model.Band;
 import se.kicksort.metalarchives.model.BandMember;
+import se.kicksort.metalarchives.model.TinyAlbum;
 import se.kicksort.metalarchives.network.BandController;
 
 /**
@@ -61,14 +61,14 @@ public class BandFragment extends Fragment {
     }
 
     private void setupDiscographySection() {
-        final Comparator<Album> CHRONOLOGICAL_COMPARATOR = (a, b) -> a.getYear().compareTo(b.getYear());
+        final Comparator<TinyAlbum> CHRONOLOGICAL_COMPARATOR = (a, b) -> a.getYear().compareTo(b.getYear());
         albumAdapter = new AlbumAdapter(getContext(), CHRONOLOGICAL_COMPARATOR);
         albumAdapter.getClicks().subscribe(album -> NavigationManager.getInstance().openAlbum(album.getId()));
 
         setupRecyclerView(binding.discographyRecyclerView, albumAdapter);
 
         binding.discographyToggle.setOnValueChangedListener(this::showDiscographySection);
-        binding.discographyToggle.setStates(new boolean[] {true, false, false, false, false});
+        binding.discographyToggle.setStates(new boolean[]{true, false, false, false, false});
     }
 
     private void setupMembersSection() {
@@ -81,7 +81,7 @@ public class BandFragment extends Fragment {
         setupRecyclerView(binding.membersRecyclerView, membersAdapter);
 
         binding.membersToggle.setOnValueChangedListener(this::showMembersSection);
-        binding.membersToggle.setStates(new boolean[] {true, false, false});
+        binding.membersToggle.setStates(new boolean[]{true, false, false});
     }
 
     private void setupRecyclerView(RecyclerView recyclerView, SortedListAdapter adapter) {
@@ -118,7 +118,7 @@ public class BandFragment extends Fragment {
 
         if (band.getDiscography().size() >= 20) {
             // Show only full length albums
-            binding.discographyToggle.setStates(new boolean[] {false, true, false, false, false});
+            binding.discographyToggle.setStates(new boolean[]{false, true, false, false, false});
             showDiscographySection(1);
         } else {
             albumAdapter.edit().replaceAll(band.getDiscography()).commit();
@@ -128,7 +128,7 @@ public class BandFragment extends Fragment {
     }
 
     private void showDiscographySection(int position) {
-        ArrayList<Album> albumsToShow;
+        ArrayList<TinyAlbum> albumsToShow;
 
         String selectedSection = getResources().getStringArray(R.array.discography_array)[position];
 
@@ -143,8 +143,8 @@ public class BandFragment extends Fragment {
             albumsToShow = filterAlbums(filter);
         } else if (selectedSection.equalsIgnoreCase("misc")) {
             albumsToShow = band.getDiscography();
-            String[] filter = {"full-length","live album", "video", "demo"};
-            ArrayList<Album> albumsToRemove = filterAlbums(filter);
+            String[] filter = {"full-length", "live album", "video", "demo"};
+            ArrayList<TinyAlbum> albumsToRemove = filterAlbums(filter);
             albumsToShow.removeAll(albumsToRemove);
         } else {
             albumsToShow = band.getDiscography();
@@ -154,10 +154,10 @@ public class BandFragment extends Fragment {
         albumAdapter.edit().replaceAll(albumsToShow).commit();
     }
 
-    private ArrayList<Album> filterAlbums(String[] types) {
-        final ArrayList<Album> filteredList = new ArrayList<>();
+    private ArrayList<TinyAlbum> filterAlbums(String[] types) {
+        final ArrayList<TinyAlbum> filteredList = new ArrayList<>();
 
-        for (Album album : band.getDiscography()) {
+        for (TinyAlbum album : band.getDiscography()) {
             for (String type : types) {
                 if (album.getType().equalsIgnoreCase(type)) {
                     filteredList.add(album);

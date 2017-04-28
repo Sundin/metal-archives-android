@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Gustav Sundin on 10/03/17.
  */
 
-public class Album implements SortedListAdapter.ViewModel {
+public class TinyAlbum implements SortedListAdapter.ViewModel {
     @SerializedName("name")
     @Expose
     private String title;
@@ -43,8 +43,8 @@ public class Album implements SortedListAdapter.ViewModel {
 
     @Override
     public <T> boolean isSameModelAs(T item) {
-        if (item instanceof Album) {
-            final Album other = (Album) item;
+        if (item instanceof TinyAlbum) {
+            final TinyAlbum other = (TinyAlbum) item;
             return other.id.equals(id);
         }
         return false;
@@ -52,8 +52,8 @@ public class Album implements SortedListAdapter.ViewModel {
 
     @Override
     public <T> boolean isContentTheSameAs(T item) {
-        if (item instanceof Album) {
-            final Album other = (Album) item;
+        if (item instanceof TinyAlbum) {
+            final TinyAlbum other = (TinyAlbum) item;
             if (!id.equals(other.id)) {
                 return false;
             }

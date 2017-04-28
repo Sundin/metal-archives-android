@@ -3,8 +3,8 @@ package se.kicksort.metalarchives.network;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import se.kicksort.metalarchives.model.Band;
 import se.kicksort.metalarchives.model.AlbumWrapper;
+import se.kicksort.metalarchives.model.Band;
 import se.kicksort.metalarchives.model.SearchResults;
 
 /**

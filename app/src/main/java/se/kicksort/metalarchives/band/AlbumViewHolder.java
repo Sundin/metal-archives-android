@@ -5,11 +5,11 @@ import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.databinding.AlbumListEntryBinding;
-import se.kicksort.metalarchives.model.Album;
+import se.kicksort.metalarchives.model.TinyAlbum;
 
-public class AlbumViewHolder extends SortedListAdapter.ViewHolder<Album> {
+public class AlbumViewHolder extends SortedListAdapter.ViewHolder<TinyAlbum> {
     private final AlbumListEntryBinding binding;
-    private PublishSubject<Album> clickSubject = PublishSubject.create();
+    private PublishSubject<TinyAlbum> clickSubject = PublishSubject.create();
 
     public AlbumViewHolder(AlbumListEntryBinding binding) {
         super(binding.getRoot());
@@ -18,11 +18,11 @@ public class AlbumViewHolder extends SortedListAdapter.ViewHolder<Album> {
     }
 
     @Override
-    public void performBind(Album item) {
+    public void performBind(TinyAlbum item) {
         binding.setAlbum(item);
     }
 
-    public Observable<Album> getClicks() {
+    public Observable<TinyAlbum> getClicks() {
         return clickSubject;
     }
 }
