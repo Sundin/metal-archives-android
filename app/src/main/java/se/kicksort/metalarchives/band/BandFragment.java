@@ -107,7 +107,6 @@ public class BandFragment extends Fragment {
 
     private void displayBand(Band band) {
         binding.setBand(band);
-        binding.setBandDetails(band.getBandDetails());
 
         if (!band.getLogoUrl().equals("")) {
             Picasso.with(getContext()).load(band.getLogoUrl()).into(binding.bandLogo);

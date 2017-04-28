@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public class Band {
-    @SerializedName("id")
+    @SerializedName("_id")
     @Expose
     private String id;
 
@@ -18,36 +18,52 @@ public class Band {
     @Expose
     private String bandName;
 
-    @SerializedName("details")
+    @SerializedName("country")
     @Expose
-    private BandDetails details;
+    private String country;
 
-    @SerializedName("logo")
+    @SerializedName("location")
+    @Expose
+    private String location;
+
+    @SerializedName("status")
+    @Expose
+    private String status;
+
+    @SerializedName("genre")
+    @Expose
+    private String genre;
+
+    @SerializedName("themes")
+    @Expose
+    private String lyricalThemes;
+
+    @SerializedName("label")
+    @Expose
+    private String label;
+
+    @SerializedName("years_active")
+    @Expose
+    private String yearsActive;
+
+    @SerializedName("logo_url")
     @Expose
     private String logoUrl;
 
-    @SerializedName("photo")
+    @SerializedName("photo_url")
     @Expose
     private String photoUrl;
-
-    @SerializedName("bio")
-    @Expose
-    private String bio;
 
     @SerializedName("discography")
     @Expose
     private ArrayList<Album> discography;
 
-    @SerializedName("current_lineup")
+    @SerializedName("members")
     @Expose
-    private ArrayList<BandMember> currentLineup;
+    private AllBandMembers members;
 
     public String getBandName() {
         return bandName;
-    }
-
-    public BandDetails getBandDetails() {
-        return details;
     }
 
     public String getLogoUrl() {
@@ -63,6 +79,22 @@ public class Band {
     }
 
     public ArrayList<BandMember> getCurrentLineup() {
-        return currentLineup;
+        return members.getCurrentLineup();
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getFullLocation() {
+        return country + " (" + location + ")";
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getYearsActive() {
+        return yearsActive;
     }
 }
