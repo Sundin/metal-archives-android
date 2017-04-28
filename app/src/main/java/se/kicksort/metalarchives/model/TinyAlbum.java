@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class TinyAlbum implements SortedListAdapter.ViewModel {
-    @SerializedName("name")
+    @SerializedName("title")
     @Expose
     private String title;
 

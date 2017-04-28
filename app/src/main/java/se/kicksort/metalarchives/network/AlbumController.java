@@ -33,6 +33,6 @@ public class AlbumController {
     }
 
     public Observable<CompleteAlbumInfo> getAlbum(String albumId) {
-        return metalArchivesService.getAlbum(albumId).map(AlbumWrapper::getAlbum);
+        return metalArchivesService.getAlbum(albumId);
     }
 }

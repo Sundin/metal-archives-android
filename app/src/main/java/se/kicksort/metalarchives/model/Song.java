@@ -12,15 +12,12 @@ public class Song {
     @Expose
     private String title;
 
-    @SerializedName("length")
-    @Expose
-    private String length;
-
     public String getTitle() {
         return title;
     }
 
+    //TODO
     public String getLength() {
-        return length;
+        return "";
     }
 }
