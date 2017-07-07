@@ -100,7 +100,7 @@ public class BandFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(band -> {
                     this.band = band;
-                    binding.progressBar.setVisibility(View.INVISIBLE);
+                    binding.progressBar.setVisibility(View.GONE);
                     displayBand(band);
                 });
     }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mstb="http://schemas.android.com/apk/res-auto">
+    xmlns:mstb="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -27,21 +28,31 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"/>
 
-            <ImageView
-                android:id="@+id/band_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/darkestBackground">
 
-            <ImageView
-                android:id="@+id/band_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/band_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:id="@+id/band_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
 
             <TextView
                 style="@style/band_name_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{band.bandName}"/>
+                android:text="@{band.bandName}"
+                tools:text="Band Name"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -76,9 +87,10 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/section_header"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
+                    android:gravity="center_horizontal"
                     android:text="@string/discography_section_header"/>
 
                 <org.honorato.multistatetogglebutton.MultiStateToggleButton
@@ -105,9 +117,10 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    style="@style/section_header"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
+                    android:gravity="center_horizontal"
                     android:text="@string/members_section_header"/>
 
                 <org.honorato.multistatetogglebutton.MultiStateToggleButton
