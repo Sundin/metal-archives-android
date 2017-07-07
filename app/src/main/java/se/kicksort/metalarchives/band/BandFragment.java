@@ -174,34 +174,17 @@ public class BandFragment extends Fragment {
         String selectedSection = getResources().getStringArray(R.array.members_array)[position];
 
         if (selectedSection.equalsIgnoreCase("current")) {
-            String[] filter = {"current"};
-            membersToShow = filterBandMembers(filter);
+            membersToShow = band.getCurrentLineup();
         } else if (selectedSection.equalsIgnoreCase("past")) {
-            String[] filter = {"live album", "video"};
-            membersToShow = filterBandMembers(filter);
+            membersToShow = band.getAllBandMembers().getPastLineup();
         } else if (selectedSection.equalsIgnoreCase("live")) {
-            String[] filter = {"demo"};
-            membersToShow = filterBandMembers(filter);
+            membersToShow = band.getAllBandMembers().getLiveLineup();
         } else {
             membersToShow = band.getCurrentLineup();
         }
 
         membersAdapter.edit().removeAll().commit();
         membersAdapter.edit().replaceAll(membersToShow).commit();
-    }
-
-    private ArrayList<BandMember> filterBandMembers(String[] statuses) {
-        final ArrayList<BandMember> filteredList = new ArrayList<>();
-
-        for (BandMember member : band.getCurrentLineup()) {
-            for (String status : statuses) {
-                if (member.getStatus().equalsIgnoreCase(status)) {
-                    filteredList.add(member);
-                }
-            }
-        }
-
-        return filteredList;
     }
 
     public Observable<Integer> getScrollEvents() {

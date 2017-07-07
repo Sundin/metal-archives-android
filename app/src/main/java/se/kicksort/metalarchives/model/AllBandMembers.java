@@ -25,4 +25,12 @@ public class AllBandMembers {
     public ArrayList<BandMember> getCurrentLineup() {
         return new ArrayList<>(currentLineup);
     }
+
+    public ArrayList<BandMember> getPastLineup() {
+        return new ArrayList<>(pastLineup);
+    }
+
+    public ArrayList<BandMember> getLiveLineup() {
+        return new ArrayList<>(liveLineup);
+    }
 }

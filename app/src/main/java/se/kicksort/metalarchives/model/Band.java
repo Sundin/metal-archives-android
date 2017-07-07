@@ -90,6 +90,10 @@ public class Band {
         return members.getCurrentLineup();
     }
 
+    public AllBandMembers getAllBandMembers() {
+        return members;
+    }
+
     public String getGenre() {
         return genre;
     }
