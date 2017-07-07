@@ -24,7 +24,7 @@ public class CompleteAlbumInfo extends TinyAlbum {
 
     @SerializedName("label")
     @Expose
-    private String label;
+    private Label label;
 
     @SerializedName("format")
     @Expose
@@ -50,8 +50,8 @@ public class CompleteAlbumInfo extends TinyAlbum {
         return catalogId;
     }
 
-    public String getLabel() {
-        return label;
+    public String getLabelName() {
+        return label.getName();
     }
 
     public String getFormat() {

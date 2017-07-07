@@ -44,7 +44,7 @@ public class Band {
 
     @SerializedName("label")
     @Expose
-    private String label;
+    private Label label;
 
     @SerializedName("formed_in")
     @Expose
@@ -98,8 +98,8 @@ public class Band {
         return country + " (" + location + ")";
     }
 
-    public String getLabel() {
-        return label;
+    public String getLabelName() {
+        return label.getName();
     }
 
     public String getYearsActive() {
