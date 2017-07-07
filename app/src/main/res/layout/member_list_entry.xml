@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="member"
-            type="se.kicksort.metalarchives.model.BandMember" />
+            type="se.kicksort.metalarchives.model.BandMember"/>
     </data>
 
     <LinearLayout
+        style="@style/list_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -22,19 +25,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{member.name}" />
+                android:text="@{member.name}"
+                tools:text="Member Name"/>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="@{member.years}" />
+                android:text="@{member.years}"
+                tools:text="1980-1987"/>
         </RelativeLayout>
 
         <TextView
             style="@style/sub_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{member.instrument}" />
+            android:text="@{member.instrument}"
+            tools:text="Thunder Bass"/>
     </LinearLayout>
 </layout>

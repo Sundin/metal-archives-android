@@ -18,10 +18,20 @@
     <style name="band_name_title" parent="TextViewStyle">
         <item name="android:textSize">45sp</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">serif</item>
     </style>
 
     <style name="sub_text" parent="TextViewStyle">
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="section_header">
+        <item name="android:padding">16dp</item>
+        <item name="android:background">@color/background2</item>
+    </style>
+
+    <style name="list_item">
+        <item name="android:padding">@dimen/margin_normal</item>
     </style>
 
 </resources>

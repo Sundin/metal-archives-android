@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="album"
-            type="se.kicksort.metalarchives.model.TinyAlbum" />
+            type="se.kicksort.metalarchives.model.TinyAlbum"/>
     </data>
 
     <LinearLayout
+        style="@style/list_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -22,19 +25,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{album.title}" />
+                android:text="@{album.title}"
+                tools:text="Album Title"/>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="@{album.year}" />
+                android:text="@{album.year}"
+                tools:text="1987"/>
         </RelativeLayout>
 
         <TextView
             style="@style/sub_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{album.type}" />
+            android:text="@{album.type}"
+            tools:text="Full-length"/>
     </LinearLayout>
 </layout>
