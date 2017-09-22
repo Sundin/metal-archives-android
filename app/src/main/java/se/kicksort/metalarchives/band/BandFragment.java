@@ -150,6 +150,14 @@ public class BandFragment extends Fragment {
             albumsToShow = band.getDiscography();
         }
 
+        if (albumsToShow.isEmpty()) {
+            binding.discographyEmptyMessage.setVisibility(View.VISIBLE);
+            binding.discographyRecyclerView.setVisibility(View.GONE);
+        } else {
+            binding.discographyEmptyMessage.setVisibility(View.GONE);
+            binding.discographyRecyclerView.setVisibility(View.VISIBLE);
+        }
+
         albumAdapter.edit().removeAll().commit();
         albumAdapter.edit().replaceAll(albumsToShow).commit();
     }
@@ -181,6 +189,14 @@ public class BandFragment extends Fragment {
             membersToShow = band.getAllBandMembers().getLiveLineup();
         } else {
             membersToShow = band.getCurrentLineup();
+        }
+
+        if (membersToShow.isEmpty()) {
+            binding.membersEmptyMessage.setVisibility(View.VISIBLE);
+            binding.membersRecyclerView.setVisibility(View.GONE);
+        } else {
+            binding.membersEmptyMessage.setVisibility(View.GONE);
+            binding.membersRecyclerView.setVisibility(View.VISIBLE);
         }
 
         membersAdapter.edit().removeAll().commit();

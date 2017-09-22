@@ -132,6 +132,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
+                    <TextView
+                        style="@style/empty_data_message"
+                        android:id="@+id/discography_empty_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/discography_empty_message"
+                        android:visibility="gone"/>
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -167,6 +176,15 @@
                         android:id="@+id/members_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
+                    <TextView
+                        style="@style/empty_data_message"
+                        android:id="@+id/members_empty_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/members_empty_message"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>

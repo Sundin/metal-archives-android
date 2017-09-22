@@ -4,9 +4,11 @@
     <string name="album_lineup_header">LINEUP</string>
     <string name="members_section_header">MEMBERS</string>
     <string name="discography_section_header">DISCOGRAPHY</string>
+    <string name="discography_empty_message">Nothing to show</string>
+    <string name="members_empty_message">None</string>
 
     <string-array name="discography_array">
-        <item>Complete</item>
+        <item>All</item>
         <item>Main</item>
         <item>Live</item>
         <item>Demos</item>
