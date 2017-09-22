@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mstb="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -8,7 +7,7 @@
 
         <variable
             name="band"
-            type="se.kicksort.metalarchives.model.Band"/>
+            type="se.kicksort.metalarchives.model.Band" />
     </data>
 
     <ScrollView
@@ -26,118 +25,151 @@
                 android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:indeterminate="true"/>
+                android:indeterminate="true" />
 
-            <RelativeLayout
+            <android.support.v7.widget.CardView
+                style="@style/card_view"
+                android:id="@+id/images_card_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/darkestBackground">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/band_logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"/>
-
-                <ImageView
-                    android:id="@+id/band_photo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"/>
-
-            </RelativeLayout>
-
-            <TextView
-                style="@style/band_name_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{band.bandName}"
-                tools:text="Band Name"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{band.genre}"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{band.fullLocation}"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{band.yearsActive}"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{band.labelName}"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent"/>
-
-            <LinearLayout
-                android:id="@+id/discography_section"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/section_header"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/band_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true" />
+
+                    <ImageView
+                        android:id="@+id/band_photo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/card_view"
+                android:id="@+id/summary_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:gravity="center_horizontal"
-                    android:text="@string/discography_section_header"/>
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp">
 
-                <org.honorato.multistatetogglebutton.MultiStateToggleButton
-                    android:id="@+id/discography_toggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    mstb:mstbPrimaryColor="@color/colorPrimary"
-                    mstb:mstbSecondaryColor="@color/colorAccent"
-                    mstb:values="@array/discography_array"/>
+                    <TextView
+                        style="@style/band_name_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{band.bandName}"
+                        tools:text="Band Name" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/discography_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{band.genre}"
+                        tools:text="Genre" />
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{band.fullLocation}"
+                        tools:text="Location" />
 
-            <LinearLayout
-                android:id="@+id/members_section"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{band.yearsActive}"
+                        tools:text="1985-1987" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{band.labelName}"
+                        tools:text="High Roller Records" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/card_view"
+                android:id="@+id/discography_card_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_height="500dp">
 
-                <TextView
-                    style="@style/section_header"
+                <LinearLayout
+                    android:id="@+id/discography_section"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center_horizontal"
-                    android:text="@string/members_section_header"/>
+                    android:orientation="vertical">
 
-                <org.honorato.multistatetogglebutton.MultiStateToggleButton
-                    android:id="@+id/members_toggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
-                    mstb:mstbPrimaryColor="@color/colorPrimary"
-                    mstb:mstbSecondaryColor="@color/colorAccent"
-                    mstb:values="@array/members_array"/>
+                    <TextView
+                        style="@style/section_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/discography_section_header" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/members_recycler_view"
+                    <org.honorato.multistatetogglebutton.MultiStateToggleButton
+                        android:id="@+id/discography_toggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        mstb:mstbPrimaryColor="@color/colorPrimary"
+                        mstb:mstbSecondaryColor="@color/background2"
+                        mstb:values="@array/discography_array" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/discography_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/card_view"
+                android:id="@+id/members_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="500dp">
+                <LinearLayout
+                    android:id="@+id/members_section"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        style="@style/section_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/members_section_header" />
+
+                    <org.honorato.multistatetogglebutton.MultiStateToggleButton
+                        android:id="@+id/members_toggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        mstb:mstbPrimaryColor="@color/colorPrimary"
+                        mstb:mstbSecondaryColor="@color/background2"
+                        mstb:values="@array/members_array" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/members_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 

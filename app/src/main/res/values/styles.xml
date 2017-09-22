@@ -4,8 +4,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/colorPrimaryDark</item>
-        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/background3</item>
+        <item name="android:colorBackground">@color/background3</item>
         <item name="android:textViewStyle">@style/TextViewStyle</item>
     </style>
 
@@ -26,12 +26,22 @@
     </style>
 
     <style name="section_header">
-        <item name="android:padding">16dp</item>
-        <item name="android:background">@color/background2</item>
+        <item name="android:padding">10dp</item>
     </style>
 
     <style name="list_item">
         <item name="android:padding">@dimen/margin_normal</item>
+    </style>
+
+    <style name="card_view">
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardBackgroundColor">@color/darkestBackground</item>
+        <item name="cardElevation">0.7dp</item>
+        <item name="cardMaxElevation">1dp</item>
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="contentPadding">10dp</item>
+        <item name="contentPaddingBottom">0dp</item>
     </style>
 
 </resources>

@@ -7,5 +7,6 @@
 
     <color name="lightAccent">#D2A898</color>
     <color name="background2">#C47937</color>
+    <color name="background3">#895526</color>
     <color name="darkestBackground">#000000</color>
 </resources>

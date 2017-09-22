@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class BaseActivity extends AppCompatActivity {
 
         searchResults = (SearchResultsView) findViewById(R.id.search_results);
         searchResults.getSearchResultClicks().subscribe(this::openBandResult);
+        NavigationManager.getInstance().openBand("3540372230");
     }
 
     private void handleScroll(int scrollY) {
@@ -59,6 +61,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private void openBandResult(BandSearchResult bandSearchResult) {
         hideKeyboard();
+        Log.d("Band", bandSearchResult.getId());
         NavigationManager.getInstance().openBand(bandSearchResult.getId());
     }
 
