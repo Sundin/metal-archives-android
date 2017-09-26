@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import java.util.Comparator;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.NavigationManager;
@@ -41,6 +44,7 @@ public class BandFragment extends Fragment {
     private AlbumAdapter albumAdapter;
     private MembersAdapter membersAdapter;
 
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final PublishSubject<Integer> scrollSubject = PublishSubject.create();
 
     @Nullable
@@ -60,10 +64,17 @@ public class BandFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onDestroy() {
+        compositeDisposable.dispose();
+        super.onDestroy();
+    }
+
     private void setupDiscographySection() {
         final Comparator<TinyAlbum> CHRONOLOGICAL_COMPARATOR = (a, b) -> a.getYear().compareTo(b.getYear());
         albumAdapter = new AlbumAdapter(getContext(), CHRONOLOGICAL_COMPARATOR);
-        albumAdapter.getClicks().subscribe(album -> NavigationManager.getInstance().openAlbum(album.getId()));
+        Disposable albumClicks = albumAdapter.getClicks().subscribe(album -> NavigationManager.getInstance().openAlbum(album.getId()));
+        compositeDisposable.add(albumClicks);
 
         setupRecyclerView(binding.discographyRecyclerView, albumAdapter);
 
@@ -74,9 +85,10 @@ public class BandFragment extends Fragment {
     private void setupMembersSection() {
         final Comparator<BandMember> ALPHABETICAL_COMPARATOR = (a, b) -> a.getName().compareTo(b.getName());
         membersAdapter = new MembersAdapter(getContext(), ALPHABETICAL_COMPARATOR);
-        membersAdapter.getClicks().subscribe(member -> {
+        Disposable memberClicks = membersAdapter.getClicks().subscribe(member -> {
             // TODO: Clicked band member
         });
+        compositeDisposable.add(memberClicks);
 
         setupRecyclerView(binding.membersRecyclerView, membersAdapter);
 
@@ -95,14 +107,17 @@ public class BandFragment extends Fragment {
     }
 
     private void loadBandData() {
-        bandController.getBand(bandId)
+        Disposable loadBandRequest = bandController.getBand(bandId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(band -> {
                     this.band = band;
                     binding.progressBar.setVisibility(View.GONE);
                     displayBand(band);
+                }, error -> {
+                    Log.d("ERROR", error.getMessage());
                 });
+        compositeDisposable.add(loadBandRequest);
     }
 
     private void displayBand(Band band) {

@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import se.kicksort.metalarchives.model.BandSearchResult;
 import se.kicksort.metalarchives.search.SearchResultsView;
 
@@ -22,6 +24,8 @@ public class BaseActivity extends AppCompatActivity {
     public NavigationManager navigationManager;
     private SearchResultsView searchResults;
 
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     private int lastScrollY = 0;
 
     @Override
@@ -31,12 +35,20 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
 
         navigationManager = new NavigationManager(getSupportFragmentManager(), this);
-        navigationManager.getScrollEvents().subscribe(this::handleScroll);
+        Disposable scrollEvents = navigationManager.getScrollEvents().subscribe(this::handleScroll);
+        compositeDisposable.add(scrollEvents);
         NavigationManager.getInstance().openStartView();
 
         searchResults = (SearchResultsView) findViewById(R.id.search_results);
-        searchResults.getSearchResultClicks().subscribe(this::openBandResult);
+        Disposable searchResultClicks = searchResults.getSearchResultClicks().subscribe(this::openBandResult);
+        compositeDisposable.add(searchResultClicks);
         NavigationManager.getInstance().openBand("3540372230");
+    }
+
+    @Override
+    public void onDestroy() {
+        compositeDisposable.dispose();
+        super.onDestroy();
     }
 
     private void handleScroll(int scrollY) {

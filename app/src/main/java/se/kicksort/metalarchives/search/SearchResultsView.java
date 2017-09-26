@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -82,8 +83,11 @@ public class SearchResultsView extends LinearLayout {
             bandController.searchByBandName(query)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(bandResults -> mAdapter.edit().replaceAll(bandResults).commit());
-
+                    .subscribe(bandResults -> {
+                        mAdapter.edit().replaceAll(bandResults).commit();
+                    }, error -> {
+                        Log.d("ERROR", error.getMessage());
+                    });
         }
     }
 }

@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import se.kicksort.metalarchives.R;
@@ -32,6 +35,7 @@ public class AlbumFragment extends Fragment {
     private AlbumController albumController = new AlbumController();
     private String albumId = null;
 
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final PublishSubject<Integer> scrollSubject = PublishSubject.create();
 
     @Nullable
@@ -48,18 +52,27 @@ public class AlbumFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onDestroy() {
+        compositeDisposable.dispose();
+        super.onDestroy();
+    }
+
     public void setAlbumId(String id) {
         this.albumId = id;
     }
 
     private void loadAlbumData() {
-        albumController.getAlbum(albumId)
+        Disposable getAlbumRequest = albumController.getAlbum(albumId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(album -> {
                     binding.progressBar.setVisibility(View.GONE);
                     displayAlbum(album);
+                }, error -> {
+                    Log.d("ERROR", error.getMessage());
                 });
+        compositeDisposable.add(getAlbumRequest);
     }
 
     private void displayAlbum(CompleteAlbumInfo album) {
