@@ -57,7 +57,7 @@ public class AlbumFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(album -> {
-                    binding.progressBar.setVisibility(View.INVISIBLE);
+                    binding.progressBar.setVisibility(View.GONE);
                     displayAlbum(album);
                 });
     }
