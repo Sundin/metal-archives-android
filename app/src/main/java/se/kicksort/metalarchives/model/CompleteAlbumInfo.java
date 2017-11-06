@@ -38,6 +38,10 @@ public class CompleteAlbumInfo extends TinyAlbum {
     @Expose
     private ArrayList<Song> songs;
 
+    @SerializedName("lineup")
+    @Expose
+    private ArrayList<BandMember> lineup;
+
     public String getAlbumCoverUrl() {
         return albumCoverUrl;
     }
@@ -67,8 +71,7 @@ public class CompleteAlbumInfo extends TinyAlbum {
         return songs;
     }
 
-    //TODO
     public ArrayList<BandMember> getLineup() {
-        return new ArrayList<>();
+        return lineup;
     }
 }

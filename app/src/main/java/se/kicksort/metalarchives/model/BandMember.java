@@ -13,7 +13,7 @@ public class BandMember implements SortedListAdapter.ViewModel {
     @Expose
     private String name = "";
 
-    @SerializedName("id")
+    @SerializedName("_id")
     @Expose
     private String id = "";
 

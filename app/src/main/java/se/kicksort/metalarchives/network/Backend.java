@@ -9,13 +9,13 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 
 public class Backend {
-    private final static String baseUrl = "http://192.168.1.64:4567/";
+    private final static String baseUrl = "http://192.168.1.62:4567/";
 
     public static String getBaseUrl() {
         return baseUrl;
     }
 
-    private static String getLocalIpAddress() throws SocketException, UnknownHostException{
+    private static String getLocalIpAddress() throws SocketException, UnknownHostException {
         InetAddress result = null;
         Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
         while (interfaces.hasMoreElements()) {
