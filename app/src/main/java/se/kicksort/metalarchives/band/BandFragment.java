@@ -37,6 +37,7 @@ import se.kicksort.metalarchives.network.BandController;
 
 public class BandFragment extends Fragment {
     private BandFragmentBinding binding;
+    private String bandName = null;
     private String bandId = null;
     private Band band;
     private BandController bandController = new BandController();
@@ -102,12 +103,13 @@ public class BandFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    public void setBandId(String id) {
+    public void setBand(String bandName, String id) {
+        this.bandName = bandName;
         this.bandId = id;
     }
 
     private void loadBandData() {
-        Disposable loadBandRequest = bandController.getBand(bandId)
+        Disposable loadBandRequest = bandController.getBand(bandName, bandId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(band -> {

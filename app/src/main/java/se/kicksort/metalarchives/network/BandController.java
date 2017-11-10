@@ -36,8 +36,8 @@ public class BandController {
         metalArchivesService = retrofit.create(MetalArchivesService.class);
     }
 
-    public Observable<Band> getBand(String band) {
-        return metalArchivesService.getBand(band);
+    public Observable<Band> getBand(String bandName, String id) {
+        return metalArchivesService.getBand(bandName, id);
     }
 
     public Observable<ArrayList<BandSearchResult>> searchByBandName(String query) {

@@ -42,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         searchResults = (SearchResultsView) findViewById(R.id.search_results);
         Disposable searchResultClicks = searchResults.getSearchResultClicks().subscribe(this::openBandResult);
         compositeDisposable.add(searchResultClicks);
-        NavigationManager.getInstance().openBand("3540372230");
+        NavigationManager.getInstance().openBand("Armory", "3540372230");
     }
 
     @Override
@@ -74,7 +74,7 @@ public class BaseActivity extends AppCompatActivity {
     private void openBandResult(BandSearchResult bandSearchResult) {
         hideKeyboard();
         Log.d("Band", bandSearchResult.getId());
-        NavigationManager.getInstance().openBand(bandSearchResult.getId());
+        NavigationManager.getInstance().openBand(bandSearchResult.getBandName(), bandSearchResult.getId());
     }
 
     @Override

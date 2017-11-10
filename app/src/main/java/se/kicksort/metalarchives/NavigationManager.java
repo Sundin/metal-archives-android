@@ -91,9 +91,9 @@ public class NavigationManager {
         baseActivity.showSearchBar();
     }
 
-    public void openBand(String bandId) {
+    public void openBand(String bandName, String bandId) {
         BandFragment bandFragment = new BandFragment();
-        bandFragment.setBandId(bandId);
+        bandFragment.setBand(bandName, bandId);
         NavigationManager.getInstance().open(bandFragment);
         bandFragment.getScrollEvents().subscribe(scrollSubject::onNext);
         baseActivity.showSearchBar();

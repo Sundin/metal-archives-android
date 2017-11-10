@@ -9,36 +9,40 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class BandSearchResult implements SortedListAdapter.ViewModel {
-    @SerializedName("band_name")
-    @Expose
-    private String name;
-
     @SerializedName("_id")
     @Expose
     private String id;
 
-    @SerializedName("genre")
+    @SerializedName("_score")
     @Expose
-    private String genre;
+    private Double searchScore;
 
-    @SerializedName("country")
+    @SerializedName("_source")
     @Expose
-    private String country;
-
-    public String getBandName() {
-        return name;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public String getCountry() {
-        return country;
-    }
+    private SearchResultsInnerData source;
 
     public String getId() {
         return id;
+    }
+
+    public Double getSearchScore() {
+        return searchScore;
+    }
+
+    public String getBandName() {
+        return source.getBandName();
+    }
+
+    public String getGenre() {
+        return source.getGenre();
+    }
+
+    public String getCountry() {
+        return source.getCountry();
+    }
+
+    public String getStatus() {
+        return source.getStatus();
     }
 
     @Override
@@ -51,10 +55,10 @@ public class BandSearchResult implements SortedListAdapter.ViewModel {
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = source.getBandName() != null ? source.getBandName().hashCode() : 0;
         result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (genre != null ? genre.hashCode() : 0);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (source.getGenre() != null ? source.getGenre().hashCode() : 0);
+        result = 31 * result + (source.getCountry() != null ? source.getCountry().hashCode() : 0);
 
         return result;
     }
@@ -72,14 +76,48 @@ public class BandSearchResult implements SortedListAdapter.ViewModel {
     public <T> boolean isContentTheSameAs(T item) {
         if (item instanceof BandSearchResult) {
             final BandSearchResult other = (BandSearchResult) item;
-            if (!name.equals(other.name)) {
+            if (!source.getBandName().equals(other.getBandName())) {
                 return false;
             }
-            if (!country.equals(other.country)) {
+            if (!source.getCountry().equals(other.getCountry())) {
                 return false;
             }
-            return genre != null ? genre.equals(other.genre) : other.genre == null;
+            return source.getGenre() != null ? source.getGenre().equals(other.getGenre()) : other.getGenre() == null;
         }
         return false;
+    }
+}
+
+class SearchResultsInnerData {
+    @SerializedName("band_name")
+    @Expose
+    private String name = "";
+
+    @SerializedName("genre")
+    @Expose
+    private String genre = "";
+
+    @SerializedName("country")
+    @Expose
+    private String country = "";
+
+    @SerializedName("status")
+    @Expose
+    private String status = "";
+
+    public String getBandName() {
+        return name;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

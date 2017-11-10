@@ -13,12 +13,12 @@ import se.kicksort.metalarchives.model.SearchResults;
  */
 
 public interface MetalArchivesService {
-    @GET("band/{band}")
-    Observable<Band> getBand(@Path("band") String band);
+    @GET("bands/{bandName}/{id}")
+    Observable<Band> getBand(@Path("bandName") String bandName, @Path("id") String id);
 
-    @GET("search/band_name/{query}")
+    @GET("search/{query}")
     Observable<SearchResults> searchByBandName(@Path("query") String query);
 
-    @GET("album/{albumId}")
+    @GET("albums/{albumId}")
     Observable<CompleteAlbumInfo> getAlbum(@Path("albumId") String albumId);
 }
