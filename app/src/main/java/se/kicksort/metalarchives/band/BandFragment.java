@@ -48,6 +48,8 @@ public class BandFragment extends Fragment {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final PublishSubject<Integer> scrollSubject = PublishSubject.create();
 
+    private int selectedDiscographySection = -1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,7 +82,6 @@ public class BandFragment extends Fragment {
         setupRecyclerView(binding.discographyRecyclerView, albumAdapter);
 
         binding.discographyToggle.setOnValueChangedListener(this::showDiscographySection);
-        binding.discographyToggle.setStates(new boolean[]{true, false, false, false, false});
     }
 
     private void setupMembersSection() {
@@ -133,38 +134,53 @@ public class BandFragment extends Fragment {
             Picasso.with(getContext()).load(band.getPhotoUrl()).into(binding.bandPhoto);
         }
 
-        if (band.getDiscography().size() >= 20) {
-            // Show only full length albums
-            binding.discographyToggle.setStates(new boolean[]{false, true, false, false, false});
-            showDiscographySection(1);
-        } else {
-            albumAdapter.edit().replaceAll(band.getDiscography()).commit();
-        }
+        this.loadDiscography(band);
 
         membersAdapter.edit().replaceAll(band.getCurrentLineup()).commit();
     }
 
+    private void loadDiscography(Band band) {
+        if (selectedDiscographySection > -1) {
+            showDiscographySection(selectedDiscographySection);
+        } else if (band.getDiscography().size() >= 20) {
+            // Show only full length albums
+            binding.discographyToggle.setStates(new boolean[]{false, true, false, false, false});
+            showDiscographySection(1);
+        } else {
+            binding.discographyToggle.setStates(new boolean[]{true, false, false, false, false});
+            showDiscographySection(0);
+        }
+    }
+
     private void showDiscographySection(int position) {
+        if (band == null) {
+            Log.d("BandFragment", "Band data not loaded yet");
+            return;
+        }
+        selectedDiscographySection = position;
+
+        final ArrayList<TinyAlbum> fullDiscography = band.getDiscography();
+
         ArrayList<TinyAlbum> albumsToShow;
 
         String selectedSection = getResources().getStringArray(R.array.discography_array)[position];
 
         if (selectedSection.equalsIgnoreCase("main")) {
             String[] filter = {"full-length"};
-            albumsToShow = filterAlbums(filter);
+            albumsToShow = filterAlbums(fullDiscography, filter);
         } else if (selectedSection.equalsIgnoreCase("live")) {
             String[] filter = {"live album", "video"};
-            albumsToShow = filterAlbums(filter);
+            albumsToShow = filterAlbums(fullDiscography, filter);
         } else if (selectedSection.equalsIgnoreCase("demos")) {
             String[] filter = {"demo"};
-            albumsToShow = filterAlbums(filter);
+            albumsToShow = filterAlbums(fullDiscography, filter);
         } else if (selectedSection.equalsIgnoreCase("misc")) {
-            albumsToShow = band.getDiscography();
+            albumsToShow = fullDiscography;
             String[] filter = {"full-length", "live album", "video", "demo"};
-            ArrayList<TinyAlbum> albumsToRemove = filterAlbums(filter);
+            ArrayList<TinyAlbum> albumsToRemove = filterAlbums(fullDiscography, filter);
             albumsToShow.removeAll(albumsToRemove);
         } else {
-            albumsToShow = band.getDiscography();
+            albumsToShow = fullDiscography;
         }
 
         if (albumsToShow.isEmpty()) {
@@ -179,10 +195,10 @@ public class BandFragment extends Fragment {
         albumAdapter.edit().replaceAll(albumsToShow).commit();
     }
 
-    private ArrayList<TinyAlbum> filterAlbums(String[] types) {
+    private ArrayList<TinyAlbum> filterAlbums(ArrayList<TinyAlbum> fullDiscography, String[] types) {
         final ArrayList<TinyAlbum> filteredList = new ArrayList<>();
 
-        for (TinyAlbum album : band.getDiscography()) {
+        for (TinyAlbum album : fullDiscography) {
             for (String type : types) {
                 if (album.getType().equalsIgnoreCase(type)) {
                     filteredList.add(album);
