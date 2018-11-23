@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MetalArchivesAndroid.iml" filepath="$PROJECT_DIR$/MetalArchivesAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/metal-archives-android.iml" filepath="$PROJECT_DIR$/metal-archives-android.iml" />
     </modules>
   </component>
 </project>
