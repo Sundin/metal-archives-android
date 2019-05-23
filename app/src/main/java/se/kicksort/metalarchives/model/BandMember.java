@@ -4,6 +4,8 @@ import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by Gustav Sundin on 10/03/17.
  */
@@ -26,6 +28,11 @@ public class BandMember implements SortedListAdapter.ViewModel {
     private String years = "";
 
     private String status = "current"; // past / live
+
+    @SerializedName("see_also")
+    @Expose
+    // TODO: should be another model containing band_name, _id and still_member
+    private ArrayList<Band> otherBands;
 
     public String getName() {
         if (name == null) {
@@ -55,6 +62,11 @@ public class BandMember implements SortedListAdapter.ViewModel {
     public String getStatus() {
         return status;
     }
+
+    public ArrayList<Band> getOtherBands() {
+        return new ArrayList<>(otherBands);
+    }
+
 
     @Override
     public <T> boolean isSameModelAs(T item) {

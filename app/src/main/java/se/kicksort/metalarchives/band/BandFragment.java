@@ -87,15 +87,23 @@ public class BandFragment extends Fragment {
     private void setupMembersSection() {
         final Comparator<BandMember> ALPHABETICAL_COMPARATOR = (a, b) -> a.getName().compareTo(b.getName());
         membersAdapter = new MembersAdapter(getContext(), ALPHABETICAL_COMPARATOR);
-        Disposable memberClicks = membersAdapter.getClicks().subscribe(member -> {
-            // TODO: Clicked band member
-        });
+        Disposable memberClicks = membersAdapter.getClicks().subscribe(member -> this.bandMemberClicked(member));
         compositeDisposable.add(memberClicks);
 
         setupRecyclerView(binding.membersRecyclerView, membersAdapter);
 
         binding.membersToggle.setOnValueChangedListener(this::showMembersSection);
         binding.membersToggle.setStates(new boolean[]{true, false, false});
+    }
+
+    private void bandMemberClicked(BandMember member) {
+        Log.d("BAND MEMBER CLICKED", "Name: " + member.getName() + ", Other bands: " );
+
+        for (Band band : member.getOtherBands()) {
+            Log.d("MEMBER", band.getBandName());
+        }
+
+        NavigationManager.getInstance()
     }
 
     private void setupRecyclerView(RecyclerView recyclerView, SortedListAdapter adapter) {

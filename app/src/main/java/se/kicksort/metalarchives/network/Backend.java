@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 
 public class Backend {
-    private final static String baseUrl = "http://192.168.1.62:3001/";
+    private final static String baseUrl = "https://i79r5qruzb.execute-api.eu-west-1.amazonaws.com/production/";
 
     public static String getBaseUrl() {
         return baseUrl;
